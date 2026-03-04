@@ -398,7 +398,7 @@
     <h1>The <em>Pavilion</em></h1>
     <p class="hero-sub">Where legends are made, records are set, and bragging rights are eternal.</p>
     <div class="hero-stats">
-      <div class="hero-stat"><span class="hero-stat-num">13</span><span class="hero-stat-label">Leagues</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">14</span><span class="hero-stat-label">Leagues</span></div>
       <div class="hero-stat"><span class="hero-stat-num">13</span><span class="hero-stat-label">Players</span></div>
       <div class="hero-stat"><span class="hero-stat-num">7</span><span class="hero-stat-label">Champions</span></div>
     </div>
@@ -406,6 +406,18 @@
   <div class="section">
     <div class="section-header"><h2 class="section-title">Recent Leagues</h2><div class="section-rule"></div></div>
     <div class="seasons-list stagger" id="home-recent">
+    <div class="season-row" onclick="showSeasonDetail(&#39;t20wc2026&#39;)">
+      <div>
+        <div class="season-year">2026 <span class="comp-pill comp-wc">CWC</span></div>
+        <div class="season-competition">T20 Cricket World Cup 2026</div>
+      </div>
+      <div class="season-podium">
+        <div class="podium-entry"><span class="podium-medal">🥇</span><strong>Varun Mahajan</strong></div>
+        <div class="podium-entry"><span class="podium-medal">🥈</span><span>Abhishek Chanani</span></div>
+        <div class="podium-entry"><span class="podium-medal">🥉</span><span>Vaibhav Jarad</span></div>
+      </div>
+      <div class="season-cta">View →</div>
+    </div>
     <div class="season-row" onclick="showSeasonDetail(&#39;ipl2025&#39;)">
       <div>
         <div class="season-year">2025 <span class="comp-pill comp-ipl">IPL</span></div>
@@ -946,7 +958,7 @@ const leagues = [
         { name: 'Nikunj',  values: [6, 2, 5, 0, 4,  '-2.6'] },
         { name: 'Alakh',   values: [6, 1, 6, 0, 2,  '-2.0'] },
       ]
-    },
+,
     topPerformers: [
       { name: 'Sai Sudharsan',    team: 'Gujarat Titans',              owner: 'Vaibhav', points: 1454 },
       { name: 'Suryakumar Yadav', team: 'Mumbai Indians',              owner: 'Arun',    points: 1415 },
@@ -964,6 +976,38 @@ const leagues = [
       { name: 'Aiden Markram',    team: 'Lucknow Super Giants',        owner: 'Alakh',   points: 1055 },
       { name: 'Sunil Narine',     team: 'Kolkata Knight Riders',       owner: 'Nikunj',  points: 1046 },
       { name: 'Abhishek Sharma',  team: 'Sunrisers Hyderabad',         owner: 'Santosh', points: 1004 },
+    ]
+    }
+  },
+  {
+    id:'t20wc2026', year:2026, competition:'World Cup', title:'T20 Cricket World Cup 2026',
+    desc:"Varun Mahajan's most dominant tournament performance — leading from start to finish across 52 games to claim his third Pavilion title by a commanding 1,287-point margin.",
+    winner:'Varun Mahajan', runnerUp:'Abhishek Chanani', third:'Vaibhav Jarad',
+    standings:['Varun Mahajan','Abhishek Chanani','Vaibhav Jarad','Nikunj Aggarwal','Santosh Yadav','Akshay Katihar','Sunil Kaler','Rohan Bhat'],
+    recap: [
+      "The T20 Cricket World Cup 2026 was Varun Mahajan's tournament from the very first game. Unlike previous Pavilion editions where the lead changed hands multiple times, this was a display of steady, relentless accumulation — Varun taking the lead early and never once relinquishing it across 52 games.",
+      "The opening games set the tone. Santosh Yadav burst out of the blocks fastest, briefly leading after Game 5 with 837 points, but Varun had already started building his foundation. By Game 6, Varun had overtaken Santosh and it was effectively his race to lose from that point forward. His team — anchored by Will Jacks (936 pts), Rachin Ravindra (790 pts), Jamie Overton (630 pts) and a string of world-class contributors — kept accumulating regardless of match outcomes.",
+      "Abhishek Chanani emerged as the only player capable of keeping pace. Lungi Ngidi (840 pts) and Sahibzada Farhan (858 pts) gave Abhishek's side firepower, and he made a compelling mid-tournament charge — closing the gap significantly between Games 14 and 30. But every time Abhishek threatened, Varun's depth answered. By Game 36, Varun had stretched to 3,843 — and from that point the title was never in doubt.",
+      "Vaibhav Jarad had a quietly impressive tournament, Jason Holder (951 pts) being the tournament's standout individual performer and ultimately carrying Vaibhav to third place with 5,471 points. Nikunj Aggarwal finished fourth at 5,318, Santosh Yadav fifth despite that explosive start. Akshay Katihar — the defending champion — had a difficult campaign, finishing sixth at 4,355 points, his bowler-heavy strategy struggling as batsmen dominated the tournament's final weeks.",
+      "The final margin tells the story: Varun at 6,758 points to Abhishek's 5,664 — 1,094 points clear in a tournament where no one came close after the halfway point. It was Varun's third Pavilion title and his most authoritative. Will Jacks' all-format brilliance and Rachin Ravindra's consistent run-scoring were the difference-makers — a batting-heavy squad that proved perfectly suited to T20 World Cup conditions."
+    ],
+    chartData52: [0,33,93,93,171,463,614,614,614,743,743,768,978,993,1055,1197,1471,1471,1551,1666,1666,1666,1666,1945,2184,2226,2226,2385,2385,2904,3045,3169,3169,3169,3257,3843,3913,3917,3997,3997,3997,3997,4548,4812,4913,5330,5681,5879,5894,6416,6649,6663,6758],
+    chartData52Abhishek: [0,167,167,258,382,382,429,429,429,856,856,866,1115,1743,1792,1792,1792,1792,1838,1838,1838,1855,1855,1855,2128,2128,2128,2238,2633,2633,2879,2879,2879,2879,2964,3254,3310,3310,3412,3475,3552,3552,3901,4145,4155,4541,4754,5027,5161,5224,5434,5607,5664],
+    chartData52Vaibhav: [0,0,281,390,455,455,736,736,736,882,882,882,882,1134,1134,1605,1655,1655,1913,1913,1913,1913,1913,2057,2340,2680,2680,2832,2953,3042,3166,3166,3166,3166,3188,3188,3429,3561,3561,4051,4190,4190,4212,4583,4757,4759,4759,5048,5118,5186,5186,5176,5471],
+    chartData52Nikunj: [0,32,270,459,618,598,598,598,598,648,648,798,812,852,861,1204,1204,1204,1216,1257,1257,1348,1348,1518,1558,1788,1788,1919,1919,1949,2081,2332,2332,2332,2347,2465,2607,2904,2904,2904,3024,3024,3241,3404,4113,4173,4456,4679,4787,5006,5021,5091,5318],
+    chartData52Santosh: [0,254,254,254,474,837,1037,1037,1127,1208,1208,1422,1476,1534,1534,1643,1783,1825,1825,1905,1905,1905,1905,1985,2043,2171,2171,2357,2357,2409,2459,2520,2520,2695,2766,2830,2830,2830,3138,3138,3138,3138,3273,3373,3460,3564,3953,3963,4109,4341,4599,5159,5159],
+    topPerformers: [
+      { name: 'Jason Holder',          team: 'West Indies',   owner: 'Vaibhav',  points: 951 },
+      { name: 'Will Jacks',            team: 'England',       owner: 'Varun',    points: 936 },
+      { name: 'Sahibzada Farhan',      team: 'Pakistan',      owner: 'Abhishek', points: 858 },
+      { name: 'Lungi Ngidi',           team: 'South Africa',  owner: 'Abhishek', points: 840 },
+      { name: 'Shadley van Schalkwyk', team: 'South Africa',  owner: 'Rohan',    points: 793 },
+      { name: 'Rachin Ravindra',       team: 'New Zealand',   owner: 'Varun',    points: 790 },
+      { name: 'Sikandar Raza',         team: 'Zimbabwe',      owner: 'Santosh',  points: 771 },
+      { name: 'Maheesh Theekshana',    team: 'Sri Lanka',     owner: 'Santosh',  points: 726 },
+      { name: 'Varun Chakravarthy',    team: 'India',         owner: 'Akshay',   points: 726 },
+      { name: 'Hardik Pandya',         team: 'India',         owner: 'Sunil',    points: 722 },
+      { name: 'Azmatullah Omarzai',    team: 'Afghanistan',   owner: '—',        points: 714 },
     ]
   }
 ];
@@ -1228,7 +1272,7 @@ function showSeasonDetail(id) {
       // Chart before the group stage summary paragraph (index 6)
     });
     // For tournament-style (CWC) leagues inject chart canvas after all recap paras
-    if (l.chartData55) {
+    if (l.chartData55 || l.chartData52) {
       recapHTML += `<div class="chart-wrap" style="margin-top:2rem"><canvas id="sd-points-chart"></canvas></div>`;
     }
     recapContent.innerHTML = recapHTML;
@@ -1327,6 +1371,99 @@ function showSeasonDetail(id) {
         }]
       });
     } catch(e){ console.warn('55-game chart error:',e); } }
+
+    // ── Render 52-game tournament chart (T20 WC 2026-style)
+    if (l.chartData52) { try {
+      const colors52 = ['#2c7a2c','#c0392b','#c8920a','#8e44ad','#16a085'];
+      const players52 = [
+        { name: 'Varun',    data: l.chartData52 },
+        { name: 'Abhishek', data: l.chartData52Abhishek },
+        { name: 'Vaibhav',  data: l.chartData52Vaibhav },
+        { name: 'Nikunj',   data: l.chartData52Nikunj },
+        { name: 'Santosh',  data: l.chartData52Santosh },
+      ];
+      const labels52 = Array.from({length:52},(_,i)=>i+1);
+      const ctx52 = document.getElementById('sd-points-chart').getContext('2d');
+      new Chart(ctx52, {
+        type: 'line',
+        data: {
+          labels: labels52,
+          datasets: players52.map((s, i) => ({
+            label: s.name,
+            data: s.data,
+            borderColor: colors52[i],
+            backgroundColor: 'transparent',
+            borderWidth: 2.5,
+            pointRadius: 0,
+            pointHoverRadius: 5,
+            tension: 0.2,
+            fill: false,
+          }))
+        },
+        options: {
+          responsive: true,
+          layout: { padding: { right: 75 } },
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: false },
+            title: {
+              display: true,
+              text: 'Cumulative Fantasy Points — All 52 Games',
+              font: { family: 'Playfair Display, serif', size: 15, weight: '700' },
+              color: '#1a1408',
+              padding: { bottom: 16 }
+            },
+            tooltip: {
+              callbacks: {
+                title: (items) => 'Game ' + items[0].label,
+                label: (item) => ' ' + item.dataset.label + ': ' + item.parsed.y.toLocaleString() + ' pts'
+              }
+            }
+          },
+          scales: {
+            y: {
+              title: { display: true, text: 'Fantasy Points', font: { family: 'Crimson Text, serif', size: 12 } },
+              beginAtZero: true,
+              grid: { color: '#e8e0d0' },
+              ticks: { callback: v => v.toLocaleString() }
+            },
+            x: {
+              title: { display: true, text: 'Match', font: { family: 'Crimson Text, serif', size: 12 } },
+              grid: { color: '#e8e0d0' },
+              ticks: { maxTicksLimit: 11 }
+            }
+          }
+        },
+        plugins: [{
+          id: 'endLabels52',
+          afterDatasetsDraw(chart) {
+            const ctx2 = chart.ctx;
+            ctx2.save();
+            ctx2.font = 'bold 12px sans-serif';
+            ctx2.textAlign = 'left';
+            const positions = chart.data.datasets.map((ds, i) => {
+              const meta = chart.getDatasetMeta(i);
+              const lastPt = meta.data[meta.data.length - 1];
+              return { label: ds.label, x: lastPt ? lastPt.x : 0, y: lastPt ? lastPt.y : 0, color: colors52[i] };
+            }).sort((a, b) => a.y - b.y);
+            const minGap = 16;
+            for (let iter = 0; iter < 10; iter++) {
+              for (let j = 1; j < positions.length; j++) {
+                if (positions[j].y - positions[j-1].y < minGap) positions[j].y = positions[j-1].y + minGap;
+              }
+            }
+            positions.forEach(p => {
+              ctx2.fillStyle = p.color;
+              ctx2.beginPath();
+              ctx2.arc(p.x, p.y, 3, 0, Math.PI * 2);
+              ctx2.fill();
+              ctx2.fillText(p.label, p.x + 8, p.y + 4);
+            });
+            ctx2.restore();
+          }
+        }]
+      });
+    } catch(e){ console.warn('52-game chart error:',e); } }
 
     // ── Render chart with distinct colors + end labels
     if (l.chartData) { try {
