@@ -398,7 +398,7 @@
     <h1>The <em>Pavilion</em></h1>
     <p class="hero-sub">Where legends are made, records are set, and bragging rights are eternal.</p>
     <div class="hero-stats">
-      <div class="hero-stat"><span class="hero-stat-num">14</span><span class="hero-stat-label">Leagues</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">15</span><span class="hero-stat-label">Leagues</span></div>
       <div class="hero-stat"><span class="hero-stat-num">13</span><span class="hero-stat-label">Players</span></div>
       <div class="hero-stat"><span class="hero-stat-num">7</span><span class="hero-stat-label">Champions</span></div>
     </div>
@@ -406,6 +406,16 @@
   <div class="section">
     <div class="section-header"><h2 class="section-title">Recent Leagues</h2><div class="section-rule"></div></div>
     <div class="seasons-list stagger" id="home-recent">
+    <div class="season-row" onclick="showSeasonDetail(&#39;ipl2026&#39;)">
+      <div>
+        <div class="season-year">2026 <span class="comp-pill comp-ipl">IPL</span></div>
+        <div class="season-competition">Indian Premier League 2026</div>
+      </div>
+      <div class="season-podium">
+        <div class="podium-entry" style="font-size:.9rem;color:#9cad98;font-style:italic">🏏 Season in progress</div>
+      </div>
+      <div class="season-cta">View →</div>
+    </div>
     <div class="season-row" onclick="showSeasonDetail(&#39;t20wc2026&#39;)">
       <div>
         <div class="season-year">2026 <span class="comp-pill comp-wc">CWC</span></div>
@@ -498,7 +508,7 @@
     <button class="back-btn" onclick="showPage(&#39;seasons&#39;)">← Back to Leagues</button>
 
     <!-- PODIUM -->
-    <div class="section-header"><h2 class="section-title">Podium</h2><div class="section-rule"></div></div>
+    <div class="section-header" id="sd-podium-header"><h2 class="section-title">Podium</h2><div class="section-rule"></div></div>
     <div class="olympic-podium" id="sd-podium"></div>
 
     <!-- RECAP -->
@@ -1009,6 +1019,19 @@ const leagues = [
       { name: 'Hardik Pandya',         team: 'India',         owner: 'Sunil',    points: 722 },
       { name: 'Azmatullah Omarzai',    team: 'Afghanistan',   owner: '—',        points: 714 },
     ]
+  },
+  {
+    id:'ipl2026', year:2026, competition:'IPL', title:'Indian Premier League 2026',
+    desc:'The 2026 season is underway. Ten managers, one title. Draft night: Saturday, March 21, 2026.',
+    winner:null, runnerUp:null, third:null,
+    upcoming: true,
+    draftDate: 'Saturday, March 21 at 9 AM IST',
+    confirmedPlayers: [
+      'Abhishek Chanani','Akshay Katihar','Alakh Bajaj','Arun Shetty',
+      'Nikunj Aggarwal','Rohan Bhat','Santosh Yadav','Sunil Kaler',
+      'Vaibhav Jarad','Varun Mahajan'
+    ],
+    standings: []
   }
 ];
 
@@ -1045,9 +1068,9 @@ const playerInfo = {
     bio: 'Knows the ins and outs of the sport. If there\'s an obscure stat, a county circuit nugget, or a pitch report from a ground nobody\'s heard of — Varun already knew it last week.'
   },
   'Alakh Bajaj': {
-    active: false,
-    tagline: 'The Missing Piece of the Puzzle',
-    bio: 'Used to be very active but has not participated in a while. A founding member of the league and a familiar face from the early seasons — the door is always open for a comeback.'
+    active: true,
+    tagline: 'Back to win',
+    bio: 'Used to be very active but has not participated in a while. A founding member of the league and a familiar face from the early seasons — making a comeback for IPL 2026.'
   },
   'Arun Shetty': {
     active: true,
@@ -1134,17 +1157,18 @@ const NO_DETAIL = new Set(['ipl2017','ipl2018','ipl2019','wc2019','ipl2021','ipl
 
 function seasonRowHTML(l) {
   const hasDetail = !NO_DETAIL.has(l.id);
+  const podiumHTML = l.upcoming
+    ? `<div class="podium-entry" style="font-size:.9rem;color:#9cad98;font-style:italic">🏏 Season in progress</div>`
+    : `<div class="podium-entry"><span class="podium-medal">🥇</span><strong>${l.winner}</strong></div>
+        <div class="podium-entry"><span class="podium-medal">🥈</span><span>${l.runnerUp}</span></div>
+        <div class="podium-entry"><span class="podium-medal">🥉</span><span>${l.third}</span></div>`;
   return `
     <div class="season-row${hasDetail ? '' : ' no-detail'}" ${hasDetail ? `onclick="showSeasonDetail('${l.id}')"` : ''}>
       <div>
         <div class="season-year">${l.year} <span class="comp-pill ${compClass(l.competition)}">${compLabel(l.competition)}</span></div>
         <div class="season-competition">${l.title}</div>
       </div>
-      <div class="season-podium">
-        <div class="podium-entry"><span class="podium-medal">🥇</span><strong>${l.winner}</strong></div>
-        <div class="podium-entry"><span class="podium-medal">🥈</span><span>${l.runnerUp}</span></div>
-        <div class="podium-entry"><span class="podium-medal">🥉</span><span>${l.third}</span></div>
-      </div>
+      <div class="season-podium">${podiumHTML}</div>
       ${hasDetail ? '<div class="season-cta">View →</div>' : '<div class="season-cta" style="color:var(--muted);font-size:0.75rem;font-style:italic;">No data</div>'}
     </div>`;
 }
@@ -1207,6 +1231,45 @@ function showSeasonDetail(id) {
   document.getElementById('season-detail-hero').setAttribute('data-year', l.year);
   document.getElementById('sd-eyebrow').textContent = l.competition + ' · ' + l.year;
   document.getElementById('sd-title').textContent = l.title;
+
+  // ── Upcoming / in-progress season — special layout ──────────────────────────
+  if (l.upcoming) {
+    document.getElementById('sd-podium').innerHTML = '';
+    document.getElementById('sd-podium-header').style.display = 'none';
+    document.getElementById('sd-recap-header').style.display = 'none';
+    document.getElementById('sd-recap-content').innerHTML = `
+      <div style="max-width:640px;margin:0 auto">
+
+        <!-- Draft card -->
+        <div style="background:white;border:1px solid var(--border);border-left:4px solid var(--gold);padding:1.5rem 1.75rem;margin-bottom:2rem;display:flex;align-items:center;gap:1.25rem;">
+          <div style="font-size:2rem;flex-shrink:0">📅</div>
+          <div>
+            <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--gold);letter-spacing:.04em;text-transform:uppercase;margin-bottom:.2rem">Draft Night</div>
+            <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;">${l.draftDate}</div>
+          </div>
+        </div>
+
+        <!-- Confirmed players -->
+        <div style="margin-bottom:1rem">
+          <div style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid var(--border)">Confirmed Managers</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.75rem;">
+            ${l.confirmedPlayers.map((p,i) => `
+              <div style="background:white;border:1px solid var(--border);padding:.75rem 1rem;display:flex;align-items:center;gap:.75rem;">
+                <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--gold);width:1.4rem;flex-shrink:0">${i+1}</div>
+                <div style="font-size:.95rem;font-weight:600">${p}</div>
+              </div>`).join('')}
+          </div>
+        </div>
+
+      </div>`;
+    document.getElementById('sd-points-header').style.display = 'none';
+    document.getElementById('sd-points-wrap').style.display = 'none';
+    document.getElementById('sd-performers-header').style.display = 'none';
+    document.getElementById('sd-performers-wrap').innerHTML = '';
+    document.getElementById('page-season-detail').classList.add('active');
+    window.scrollTo(0,0);
+    return;
+  }
 
   // ── Olympic podium
   document.getElementById('sd-podium').innerHTML = `
