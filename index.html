@@ -1022,16 +1022,36 @@ const leagues = [
   },
   {
     id:'ipl2026', year:2026, competition:'IPL', title:'Indian Premier League 2026',
-    desc:'The 2026 season is underway. Ten managers, one title. Draft night: Saturday, March 21, 2026.',
+    desc:'The draft is done. Ten managers, eleven rounds, one hundred and ten picks — and a season full of promise and peril ahead.',
     winner:null, runnerUp:null, third:null,
-    upcoming: true,
-    draftDate: 'Saturday, March 21 at 9 AM IST',
-    confirmedPlayers: [
-      'Abhishek Chanani','Akshay Katihar','Alakh Bajaj','Arun Shetty',
-      'Nikunj Aggarwal','Rohan Bhat','Santosh Yadav','Sunil Kaler',
-      'Vaibhav Jarad','Varun Mahajan'
+    draftDone: true,
+    standings: [],
+    draftPicks: [
+      { manager:'Rohan',     picks:['Jasprit Bumrah','Heinrich Klaasen','Sunil Narine','Riyan Parag','Rinku Singh','Rachin Ravindra','Jacob Bethell','Sai Kishore','Nitish Kumar Reddy','Shardul Thakur','Abdul Samad'] },
+      { manager:'Arun',      picks:['Abhishek Sharma','Shubman Gill','Mitchell Marsh','Yuzvendra Chahal','Jitesh Sharma','Kuldeep Yadav','Marcus Stoinis','Ashutosh Sharma','Shashank Singh','Ayush Badoni','Mohsin Khan'] },
+      { manager:'Varun',     picks:['Sanju Samson','Nicholas Pooran','Arshdeep Singh','Trent Boult','Varun Chakravarthy','Angkrish Raghuvanshi','Tim David','Devdutt Padikkal','Bhuvneshwar Kumar','Naman Dhir','Blessing Muzarabani'] },
+      { manager:'Akshay',    picks:['Virat Kohli','Shreyas Iyer','Aiden Markram','Tilak Varma','Ajinkya Rahane','Finn Allen','Dhruv Jurel','Liam Livingstone','Deepak Chahar','Lungi Ngidi','Digvesh Rathi'] },
+      { manager:'Alakh',     picks:['Sai Sudharsan','Ruturaj Gaikwad','Priyansh Arya','Cameron Green','Tristan Stubbs','Noor Ahmed','Prasidh Krishna','Nehal Wadhera','Harshal Patel','Mukesh Kumar','Ryan Rickelton'] },
+      { manager:'Vaibhav',   picks:['Travis Head','Rohit Sharma','Ayush Mhatre','Will Jacks','Quinton de Kock','Matt Henry','Mitchell Santner','Mohammed Siraj','Avesh Khan','Sameer Rizvi','Venkatesh Iyer'] },
+      { manager:'Sunil',     picks:['Ishan Kishan','Shivam Dube','Shimron Hetmyer','Rahul Tewatia','David Miller','Khaleel Ahmed','Romario Shepherd','Tushar Deshpande','Sandeep Sharma','Rahul Chahar','Aniket Verma'] },
+      { manager:'Abhishek',  picks:['Phil Salt','Hardik Pandya','Rishabh Pant','Rajat Patidar','Jofra Archer','Nitish Rana','Ravindra Jadeja','Mohammed Shami','Vaibhav Arora','MS Dhoni','Shahrukh Khan'] },
+      { manager:'Santosh',   picks:['Vaibhav Suryavanshi','Yashasvi Jaiswal','Prabhsimran Singh','Rashid Khan','Krunal Pandya','Washington Sundar','Abishek Porel','Ravi Bishnoi','Jason Holder','Pathum Nissanka','Sarfaraz Khan'] },
+      { manager:'Nikunj',    picks:['Suryakumar Yadav','KL Rahul','Axar Patel','Jos Buttler','Marco Jansen','Dewald Brevis','Kagiso Rabada','T Natarajan','Harpreet Brar','Kartik Sharma','Tim Seifert'] },
     ],
-    standings: []
+    recap: [
+      "The Pavilion's IPL 2026 draft took place on Saturday, March 21 — ten managers, eleven rounds, one hundred and ten picks. When the dust settled, the board revealed a collection of squads that will be dissected and debated until the first ball is bowled on March 28.",
+      "The draft opened with the most coveted pick on the board. Rohan took Jasprit Bumrah first overall — a decision that needs no explanation. Fresh from leading Mumbai Indians' pace attack through a T20 World Cup 2026 campaign that saw India claim the title, Bumrah is arguably the most reliable fantasy asset in the tournament. It is a statement of intent from Rohan, who added Heinrich Klaasen and Sunil Narine in quick succession to build one of the draft's most formidable cores.",
+      "Akshay secured the crown jewel of the batting pool: Virat Kohli at pick four. With RCB defending their title, Kohli enters IPL 2026 chasing 9,000 IPL runs and in the form of his life. Akshay has built his team around batting firepower — Kohli, Shreyas Iyer, Aiden Markram, Tilak Varma and Finn Allen give him relentless run-scoring depth. The question for Akshay is bowling: Deepak Chahar, Lungi Ngidi and Digvesh Rathi are a modest attack, and if his batters have a quiet week, there may not be enough bowling to compensate.",
+      "Varun made the draft's most eye-catching pick at number three: Sanju Samson. The T20 World Cup 2026 Player of the Tournament arrives at CSK as the most in-form batter on the planet, and Varun snapped him up before anyone else could react. Nicholas Pooran alongside him gives Varun one of the most explosive wicketkeeper-batting combinations in the field. Arshdeep Singh and Trent Boult provide a genuine new-ball pairing. This is a well-rounded squad — and Sanju Samson could make Varun the man to beat.",
+      "Abhishek went in a different direction entirely. Phil Salt and Hardik Pandya in the first two rounds set the tone — and then came Rishabh Pant, arguably the most divisive pick of the draft. Pant is a match-winner when he fires, but his consistency has always been the question. Abhishek then added Jofra Archer and Ravindra Jadeja, giving him genuine all-round depth. If Pant and Pandya both deliver, Abhishek's squad could be the draft's most complete. If either misfires, the ceiling drops significantly.",
+      "Santosh landed what may be the draft's most exciting combination: Vaibhav Suryavanshi and Yashasvi Jaiswal together. Suryavanshi's record-breaking 35-ball century last season and his stunning U19 World Cup 2026 — where he scored 175 in the final — makes him one of the tournament's most watchable players. Paired with Jaiswal's proven IPL pedigree, Santosh's top order could be devastating. Rashid Khan and Washington Sundar add all-round control. The concern is that Santosh's squad is very top-heavy, and the lower rounds feel thin.",
+      "Arun built patiently and cleverly. Abhishek Sharma and Shubman Gill form a dynamic SRH opening partnership, and Yuzvendra Chahal — one of the most reliable wicket-takers in IPL history — anchors the bowling. Marcus Stoinis adds lower-order hitting. It is a composed, balanced draft without a single galactic name — but Arun has won titles before without the most glamorous squad on paper, and this could be another such season.",
+      "Nikunj secured Suryakumar Yadav and KL Rahul in the opening rounds — two established match-winners — and then doubled down on bowling with Axar Patel, Jos Buttler, and Kagiso Rabada. It is a squad built for consistency rather than fireworks, and Nikunj's experience in Pavilion competition suggests he will make the most of what he has.",
+      "Vaibhav's squad is built around the SRH batting depth: Travis Head and Rohit Sharma at the top are two of the cleanest hitters in the tournament, with Ayush Mhatre — one of CSK's most exciting young prospects — offering additional firepower. Will Jacks and Quinton de Kock add international class. The bowling is Vaibhav's weak point, though Mohammed Siraj and Matt Henry give him workable options.",
+      "Alakh, returning to the Pavilion after a long absence, had a quietly impressive draft. Sai Sudharsan — one of the most consistent run-scorers in the GT setup — leads a squad anchored by Ruturaj Gaikwad and Cameron Green. Tristan Stubbs adds middle-order steel. It is a considered rebuild from a manager who has been away, and Sai Sudharsan in particular feels like a player who could quietly accumulate big points across a full season.",
+      "Sunil had the most intriguing draft of all. Ishan Kishan arrives in IPL 2026 in the form of his life — a pivotal figure in India's T20 World Cup 2026 triumph, and one of the most dangerous wicketkeeper-batters in the tournament right now. Pairing him with Shivam Dube, another World Cup winner, gives Sunil an explosive top order with genuine momentum behind it. Shimron Hetmyer, Rahul Tewatia and David Miller add serious lower-order firepower. This squad has more upside than it might appear on first glance — and Ishan in this form could be the steal of the draft.",
+      "The draft's big picture takeaway: Rohan's Bumrah-led squad and Varun's Samson-powered team look like the early frontrunners. Akshay has the batting to post huge totals but will need his bowling to overperform. Abhishek has the highest ceiling and the highest variance. And somewhere in the middle of the pack, Arun — as so often before — will be quietly building towards the Championship."
+    ]
   }
 ];
 
@@ -1157,11 +1177,13 @@ const NO_DETAIL = new Set(['ipl2017','ipl2018','ipl2019','wc2019','ipl2021','ipl
 
 function seasonRowHTML(l) {
   const hasDetail = !NO_DETAIL.has(l.id);
-  const podiumHTML = l.upcoming
-    ? `<div class="podium-entry" style="font-size:.9rem;color:#9cad98;font-style:italic">🏏 Season in progress</div>`
-    : `<div class="podium-entry"><span class="podium-medal">🥇</span><strong>${l.winner}</strong></div>
-        <div class="podium-entry"><span class="podium-medal">🥈</span><span>${l.runnerUp}</span></div>
-        <div class="podium-entry"><span class="podium-medal">🥉</span><span>${l.third}</span></div>`;
+  const podiumHTML = (l.draftDone && !l.winner)
+    ? `<div class="podium-entry" style="font-size:.9rem;color:#9cad98;font-style:italic">🏏 Season in progress — draft complete</div>`
+    : l.winner
+      ? `<div class="podium-entry"><span class="podium-medal">🥇</span><strong>${l.winner}</strong></div>
+          <div class="podium-entry"><span class="podium-medal">🥈</span><span>${l.runnerUp}</span></div>
+          <div class="podium-entry"><span class="podium-medal">🥉</span><span>${l.third}</span></div>`
+      : `<div class="podium-entry" style="font-size:.9rem;color:#9cad98;font-style:italic">🏏 Season upcoming</div>`;
   return `
     <div class="season-row${hasDetail ? '' : ' no-detail'}" ${hasDetail ? `onclick="showSeasonDetail('${l.id}')"` : ''}>
       <div>
@@ -1233,35 +1255,65 @@ function showSeasonDetail(id) {
   document.getElementById('sd-title').textContent = l.title;
 
   // ── Upcoming / in-progress season — special layout ──────────────────────────
-  if (l.upcoming) {
+  if (l.draftDone && !l.winner) {
     document.getElementById('sd-podium').innerHTML = '';
     document.getElementById('sd-podium-header').style.display = 'none';
     document.getElementById('sd-recap-header').style.display = 'none';
-    document.getElementById('sd-recap-content').innerHTML = `
-      <div style="max-width:640px;margin:0 auto">
 
-        <!-- Draft card -->
-        <div style="background:white;border:1px solid var(--border);border-left:4px solid var(--gold);padding:1.5rem 1.75rem;margin-bottom:2rem;display:flex;align-items:center;gap:1.25rem;">
-          <div style="font-size:2rem;flex-shrink:0">📅</div>
-          <div>
-            <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--gold);letter-spacing:.04em;text-transform:uppercase;margin-bottom:.2rem">Draft Night</div>
-            <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;">${l.draftDate}</div>
-          </div>
+    // ── Draft recap paragraphs
+    let recapHTML = '';
+    if (l.recap) {
+      l.recap.forEach(para => {
+        recapHTML += `<div class="recap-body"><p>${para}</p></div>`;
+      });
+    }
+
+    // ── Draft board table
+    const rounds = l.draftPicks[0].picks.length;
+    const roundNums = Array.from({length: rounds}, (_,i) => i+1);
+    const managerColors = {
+      'Rohan':'#1a472a','Arun':'#1e3a5f','Varun':'#4a1942',
+      'Akshay':'#7a3b00','Alakh':'#1a3a3a','Vaibhav':'#3b1a00',
+      'Sunil':'#2a1a4a','Abhishek':'#1a1a4a','Santosh':'#3a1a1a','Nikunj':'#0d3b2e'
+    };
+    const managerTextColors = {
+      'Rohan':'#a8d5b5','Arun':'#a8c5e8','Varun':'#d5a8d5',
+      'Akshay':'#f5c878','Alakh':'#a8d5d5','Vaibhav':'#f5b878',
+      'Sunil':'#c5a8e8','Abhishek':'#a8a8e8','Santosh':'#e8a8a8','Nikunj':'#78d5b5'
+    };
+
+    let boardHTML = `
+      <div style="margin-bottom:3rem">
+        <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;margin-bottom:.5rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)">Draft Board</div>
+        <div style="font-size:.9rem;color:var(--muted);font-style:italic;margin-bottom:1.5rem">Snake draft · 11 rounds · 110 picks · Saturday, March 21, 2026</div>
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+          <table style="border-collapse:collapse;font-family:'Crimson Text',serif;font-size:.82rem;white-space:nowrap;min-width:900px;width:100%">
+            <thead>
+              <tr>
+                <th style="background:var(--green);color:var(--gold-light);padding:.55rem .7rem;text-align:left;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.1);white-space:nowrap">Round</th>
+                ${l.draftPicks.map(m => `<th style="background:${managerColors[m.manager]||'var(--green)'};color:${managerTextColors[m.manager]||'var(--gold-light)'};padding:.55rem .6rem;text-align:center;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.1)">${m.manager}</th>`).join('')}
+              </tr>
+            </thead>
+            <tbody>
+              ${roundNums.map(rd => {
+                const isEven = rd % 2 === 0;
+                const managers = isEven ? [...l.draftPicks].reverse() : l.draftPicks;
+                // rebuild pick order for snake
+                const rowManagers = isEven ? [...l.draftPicks].reverse() : l.draftPicks;
+                return `<tr style="background:${rd%2===0?'white':'#faf7f0'}">
+                  <td style="padding:.45rem .7rem;font-family:'Playfair Display',serif;font-weight:700;color:var(--gold);border:1px solid var(--border);text-align:center;font-size:.85rem">Rd ${rd}</td>
+                  ${l.draftPicks.map(m => {
+                    const pick = m.picks[rd-1] || '—';
+                    return `<td style="padding:.45rem .6rem;border:1px solid var(--border);text-align:center;color:var(--dark)">${pick}</td>`;
+                  }).join('')}
+                </tr>`;
+              }).join('')}
+            </tbody>
+          </table>
         </div>
-
-        <!-- Confirmed players -->
-        <div style="margin-bottom:1rem">
-          <div style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid var(--border)">Confirmed Managers</div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.75rem;">
-            ${l.confirmedPlayers.map((p,i) => `
-              <div style="background:white;border:1px solid var(--border);padding:.75rem 1rem;display:flex;align-items:center;gap:.75rem;">
-                <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--gold);width:1.4rem;flex-shrink:0">${i+1}</div>
-                <div style="font-size:.95rem;font-weight:600">${p}</div>
-              </div>`).join('')}
-          </div>
-        </div>
-
       </div>`;
+
+    document.getElementById('sd-recap-content').innerHTML = recapHTML + boardHTML;
     document.getElementById('sd-points-header').style.display = 'none';
     document.getElementById('sd-points-wrap').style.display = 'none';
     document.getElementById('sd-performers-header').style.display = 'none';
