@@ -372,6 +372,14 @@
   .stagger > *:nth-child(11) { animation-delay:.44s }
   .stagger > *:nth-child(12) { animation-delay:.48s }
   .stagger > *:nth-child(13) { animation-delay:.52s }
+
+  /* ── SEASON DETAIL TABS ── */
+  .sd-tabs { display:flex; gap:0; border-bottom:2px solid var(--border); margin-bottom:2.5rem; }
+  .sd-tab-btn { padding:.65rem 1.8rem; border:none; background:none; font-family:'Crimson Text',serif; font-size:.85rem; letter-spacing:.1em; text-transform:uppercase; cursor:pointer; color:var(--muted); border-bottom:3px solid transparent; margin-bottom:-2px; transition:all .15s; }
+  .sd-tab-btn:hover { color:var(--dark); }
+  .sd-tab-btn.active { color:var(--gold); border-bottom-color:var(--gold); font-weight:600; }
+  .sd-tab-panel { display:none; }
+  .sd-tab-panel.active { display:block; }
 </style>
 <script src="./The Pavilion — Fantasy Cricket League_fixed_with_charts_files/chart.umd.min.js.download"></script>
 <script>if(typeof Chart==='undefined'){document.write('<scr'+'ipt src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"><\/scr'+'ipt>');}</script>
@@ -1040,14 +1048,14 @@ const leagues = [
     ],
     recap: [
       "The Pavilion's IPL 2026 draft took place on Saturday, March 21 — ten managers, eleven rounds, one hundred and ten picks. When the dust settled, the board revealed a collection of squads that will be dissected and debated until the first ball is bowled on March 28.",
-      "The draft opened with the most coveted pick on the board. Rohan took Jasprit Bumrah first overall — a decision that needs no explanation. Fresh from leading Mumbai Indians' pace attack through a T20 World Cup 2026 campaign that saw India claim the title, Bumrah is arguably the most reliable fantasy asset in the tournament. It is a statement of intent from Rohan, who added Heinrich Klaasen and Sunil Narine in quick succession to build one of the draft's most formidable cores.",
+      "The draft opened with the most coveted pick on the board. Rohan took Jasprit Bumrah first overall — a decision that needs no explanation. Fresh from leading India's pace attack through a T20 World Cup 2026 campaign that saw India claim the title, Bumrah is arguably the most reliable fantasy asset in the tournament. It is a statement of intent from Rohan, who added Heinrich Klaasen and Sunil Narine in quick succession to build one of the draft's most formidable cores.",
       "Akshay secured the crown jewel of the batting pool: Virat Kohli at pick four. With RCB defending their title, Kohli enters IPL 2026 chasing 9,000 IPL runs and in the form of his life. Akshay has built his team around batting firepower — Kohli, Shreyas Iyer, Aiden Markram, Tilak Varma and Finn Allen give him relentless run-scoring depth. The question for Akshay is bowling: Deepak Chahar, Lungi Ngidi and Digvesh Rathi are a modest attack, and if his batters have a quiet week, there may not be enough bowling to compensate.",
       "Varun made the draft's most eye-catching pick at number three: Sanju Samson. The T20 World Cup 2026 Player of the Tournament arrives at CSK as the most in-form batter on the planet, and Varun snapped him up before anyone else could react. Nicholas Pooran alongside him gives Varun one of the most explosive wicketkeeper-batting combinations in the field. Arshdeep Singh and Trent Boult provide a genuine new-ball pairing. This is a well-rounded squad — and Sanju Samson could make Varun the man to beat.",
       "Abhishek went in a different direction entirely. Phil Salt and Hardik Pandya in the first two rounds set the tone — and then came Rishabh Pant, arguably the most divisive pick of the draft. Pant is a match-winner when he fires, but his consistency has always been the question. Abhishek then added Jofra Archer and Ravindra Jadeja, giving him genuine all-round depth. If Pant and Pandya both deliver, Abhishek's squad could be the draft's most complete. If either misfires, the ceiling drops significantly.",
       "Santosh landed what may be the draft's most exciting combination: Vaibhav Suryavanshi and Yashasvi Jaiswal together. Suryavanshi's record-breaking 35-ball century last season and his stunning U19 World Cup 2026 — where he scored 175 in the final — makes him one of the tournament's most watchable players. Paired with Jaiswal's proven IPL pedigree, Santosh's top order could be devastating. Rashid Khan and Washington Sundar add all-round control. The concern is that Santosh's squad is very top-heavy, and the lower rounds feel thin.",
-      "Arun built patiently and cleverly. Abhishek Sharma and Shubman Gill form a dynamic SRH opening partnership, and Yuzvendra Chahal — one of the most reliable wicket-takers in IPL history — anchors the bowling. Marcus Stoinis adds lower-order hitting. It is a composed, balanced draft without a single galactic name — but Arun has won titles before without the most glamorous squad on paper, and this could be another such season.",
-      "Nikunj secured Suryakumar Yadav and KL Rahul in the opening rounds — two established match-winners — and then doubled down on bowling with Axar Patel, Jos Buttler, and Kagiso Rabada. It is a squad built for consistency rather than fireworks, and Nikunj's experience in Pavilion competition suggests he will make the most of what he has.",
-      "Vaibhav's squad is built around the SRH batting depth: Travis Head and Rohit Sharma at the top are two of the cleanest hitters in the tournament, with Ayush Mhatre — one of CSK's most exciting young prospects — offering additional firepower. Will Jacks and Quinton de Kock add international class. The bowling is Vaibhav's weak point, though Mohammed Siraj and Matt Henry give him workable options.",
+      "Arun built patiently and cleverly. Abhishek Sharma leads the batting from the top alongside Shubman Gill — a GT man who adds a different dimension — and Yuzvendra Chahal, one of the most reliable wicket-takers in IPL history, anchors the bowling. Marcus Stoinis adds lower-order hitting. It is a composed, balanced draft without a single galactic name — but Arun has won titles before without the most glamorous squad on paper, and this could be another such season.",
+      "Nikunj secured Suryakumar Yadav and KL Rahul in the opening rounds — two established match-winners — and then doubled down on bowling with Axar Patel and Kagiso Rabada. It is a squad built for consistency rather than fireworks, and Nikunj's experience in Pavilion competition suggests he will make the most of what he has.",
+      "Vaibhav's squad is built around explosive top-order firepower: Travis Head (SRH) and Rohit Sharma (MI) are two of the cleanest hitters in the tournament, with Ayush Mhatre — one of CSK's most exciting young prospects — offering additional firepower. Will Jacks and Quinton de Kock add international class. The bowling is Vaibhav's weak point, though Mohammed Siraj and Matt Henry give him workable options.",
       "Alakh, returning to the Pavilion after a long absence, had a quietly impressive draft. Sai Sudharsan — one of the most consistent run-scorers in the GT setup — leads a squad anchored by Ruturaj Gaikwad and Cameron Green. Tristan Stubbs adds middle-order steel. It is a considered rebuild from a manager who has been away, and Sai Sudharsan in particular feels like a player who could quietly accumulate big points across a full season.",
       "Sunil had the most intriguing draft of all. Ishan Kishan arrives in IPL 2026 in the form of his life — a pivotal figure in India's T20 World Cup 2026 triumph, and one of the most dangerous wicketkeeper-batters in the tournament right now. Pairing him with Shivam Dube, another World Cup winner, gives Sunil an explosive top order with genuine momentum behind it. Shimron Hetmyer, Rahul Tewatia and David Miller add serious lower-order firepower. This squad has more upside than it might appear on first glance — and Ishan in this form could be the steal of the draft.",
       "The draft's big picture takeaway: Rohan's Bumrah-led squad and Varun's Samson-powered team look like the early frontrunners. Akshay has the batting to post huge totals but will need his bowling to overperform. Abhishek has the highest ceiling and the highest variance. And somewhere in the middle of the pack, Arun — as so often before — will be quietly building towards the Championship."
@@ -1178,7 +1186,7 @@ const NO_DETAIL = new Set(['ipl2017','ipl2018','ipl2019','wc2019','ipl2021','ipl
 function seasonRowHTML(l) {
   const hasDetail = !NO_DETAIL.has(l.id);
   const podiumHTML = (l.draftDone && !l.winner)
-    ? `<div class="podium-entry" style="font-size:.9rem;color:#9cad98;font-style:italic">🏏 Season in progress — draft complete</div>`
+    ? `<div class="podium-entry" style="font-size:.9rem;color:#9cad98;font-style:italic">🏏 Season in progress</div>`
     : l.winner
       ? `<div class="podium-entry"><span class="podium-medal">🥇</span><strong>${l.winner}</strong></div>
           <div class="podium-entry"><span class="podium-medal">🥈</span><span>${l.runnerUp}</span></div>
@@ -1244,6 +1252,11 @@ function avatarHTML(name, size='normal') {
   return `<div class="${cls}">${getInitials(name)}</div>`;
 }
 
+function switchSeasonTab(idx) {
+  document.querySelectorAll('.sd-tab-btn').forEach((b,i) => b.classList.toggle('active', i===idx));
+  document.querySelectorAll('.sd-tab-panel').forEach((p,i) => p.classList.toggle('active', i===idx));
+}
+
 function showSeasonDetail(id) {
   const l = leagues.find(x=>x.id===id);
   if (!l) return;
@@ -1260,7 +1273,7 @@ function showSeasonDetail(id) {
     document.getElementById('sd-podium-header').style.display = 'none';
     document.getElementById('sd-recap-header').style.display = 'none';
 
-    // ── Draft recap paragraphs
+    // ── Draft recap paragraphs (Tab 1)
     let recapHTML = '';
     if (l.recap) {
       l.recap.forEach(para => {
@@ -1268,7 +1281,7 @@ function showSeasonDetail(id) {
       });
     }
 
-    // ── Draft board table
+    // ── Draft board table (Tab 1)
     const rounds = l.draftPicks[0].picks.length;
     const roundNums = Array.from({length: rounds}, (_,i) => i+1);
     const managerColors = {
@@ -1313,7 +1326,95 @@ function showSeasonDetail(id) {
         </div>
       </div>`;
 
-    document.getElementById('sd-recap-content').innerHTML = recapHTML + boardHTML;
+    // ── Week 1 recap (Tab 2)
+    const week1RecapParas = [
+      "IPL 2026 opened with a bang. Santosh posted the week's highest team score of 1,349 — Ravi Bishnoi (325 pts) and Vaibhav Suryavanshi (218 pts) forming a devastating combination alongside Yashasvi Jaiswal (193 pts). Varun's Angkrish Raghuvanshi (243 pts) and Blessing Muzarabani (200 pts) put up a fight, but 754 was never going to be enough. A statement week for Santosh.",
+      "Akshay cruised to 1,220 — Lungi Ngidi (235 pts) and Dhruv Jurel (222 pts) providing the firepower, with Finn Allen (190 pts) chipping in. Abhishek could only muster 747, his squad failing to fire on multiple fronts. A disappointing opening week for last season's champion.",
+      "The week's closest contest saw Alakh edge out Rohan 1,054 to 997 — a match that could have gone either way. Prasidh Krishna (225 pts) was the difference-maker for Alakh, while Nitish Kumar Reddy (210 pts), Rinku Singh (183 pts), and Shardul Thakur (180 pts) gave Rohan's side every chance. Rohan's squad put up a strong score and were unlucky to come away with nothing.",
+      "Vaibhav posted 1,021 thanks to the individual performance of the week: Sameer Rizvi scorched 350 points — the highest single-player score of Week 1 — to power his side past Nikunj's 902. T Natarajan (235 pts) was excellent for Nikunj but the rest of the squad couldn't match Rizvi's heroics.",
+      "Sunil ground out a 814–634 win over Arun, with Ishan Kishan (197 pts) doing the bulk of the damage. Arun's Yuzvendra Chahal (160 pts) was his best performer, but the SRH-heavy squad failed to produce across the board. A frustrating start for one of the pre-season favourites.",
+      "After one week, the table is perfectly split: five teams on 2 points and five on 0. Sameer Rizvi's 350 is the standout individual score, with Ravi Bishnoi (325) close behind. The dark side of the ledger: Varun Chakravarthy racked up –35 points across his two games, and Harshal Patel added –30 for Alakh — two of the draft's trusted names delivering nightmare opening weeks."
+    ];
+
+    const week1Matchups = [
+      { p1:'Santosh', s1:1349, p2:'Varun',     s2:754  },
+      { p1:'Akshay',  s1:1220, p2:'Abhishek',  s2:747  },
+      { p1:'Alakh',   s1:1054, p2:'Rohan',     s2:997  },
+      { p1:'Vaibhav', s1:1021, p2:'Nikunj',    s2:902  },
+      { p1:'Sunil',   s1:814,  p2:'Arun',      s2:634  },
+    ];
+
+    const week1PointsTable = [
+      { name:'Santosh',  values:[1,1,0,0,2,'+5.95'] },
+      { name:'Akshay',   values:[1,1,0,0,2,'+4.73'] },
+      { name:'Sunil',    values:[1,1,0,0,2,'+1.80'] },
+      { name:'Vaibhav',  values:[1,1,0,0,2,'+1.19'] },
+      { name:'Alakh',    values:[1,1,0,0,2,'+0.57'] },
+      { name:'Rohan',    values:[1,0,1,0,0,'-0.57'] },
+      { name:'Nikunj',   values:[1,0,1,0,0,'-1.19'] },
+      { name:'Arun',     values:[1,0,1,0,0,'-1.80'] },
+      { name:'Abhishek', values:[1,0,1,0,0,'-4.73'] },
+      { name:'Varun',    values:[1,0,1,0,0,'-5.95'] },
+    ];
+
+    const week1TopPerformers = [
+      { name:'Sameer Rizvi',          team:'Delhi Capitals',        owner:'Vaibhav',  points:350 },
+      { name:'Ravi Bishnoi',          team:'Rajasthan Royals',      owner:'Santosh',  points:325 },
+      { name:'Angkrish Raghuvanshi',  team:'Kolkata Knight Riders', owner:'Varun',    points:243 },
+      { name:'Lungi Ngidi',           team:'Delhi Capitals',        owner:'Akshay',   points:235 },
+      { name:'T Natarajan',           team:'Delhi Capitals',        owner:'Nikunj',   points:235 },
+      { name:'Prasidh Krishna',       team:'Kolkata Knight Riders', owner:'Alakh',    points:225 },
+      { name:'Dhruv Jurel',           team:'Rajasthan Royals',      owner:'Akshay',   points:222 },
+      { name:'Vaibhav Suryavanshi',   team:'Rajasthan Royals',      owner:'Santosh',  points:218 },
+      { name:'Blessing Muzarabani',   team:'Kolkata Knight Riders', owner:'Varun',    points:200 },
+      { name:'Ishan Kishan',          team:'Sunrisers Hyderabad',   owner:'Sunil',    points:197 },
+      { name:'Yashasvi Jaiswal',      team:'Rajasthan Royals',      owner:'Santosh',  points:193 },
+      { name:'Finn Allen',            team:'Royal Challengers',     owner:'Akshay',   points:190 },
+      { name:'Devdutt Padikkal',      team:'Royal Challengers',     owner:'Varun',    points:191 },
+      { name:'Nitish Kumar Reddy',    team:'Sunrisers Hyderabad',   owner:'Rohan',    points:210 },
+    ];
+
+    let week1HTML = '';
+    week1RecapParas.forEach(para => {
+      week1HTML += `<div class="recap-body"><p>${para}</p></div>`;
+    });
+
+    week1HTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Week 1 Results</div>`;
+    week1HTML += `<div class="matchup-grid">`;
+    week1Matchups.forEach(g => {
+      const p1wins = g.s1 > g.s2;
+      week1HTML += `<div class="matchup-card">
+        <div class="matchup-team ${p1wins?'mu-winner':'mu-loser'}">${g.p1}<span class="mu-score">${g.s1}</span></div>
+        <div class="mu-vs">vs</div>
+        <div class="matchup-team ${!p1wins?'mu-winner':'mu-loser'}">${g.p2}<span class="mu-score">${g.s2}</span></div>
+      </div>`;
+    });
+    week1HTML += `</div>`;
+
+    week1HTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Points Table</div>`;
+    week1HTML += `<table class="points-table"><thead><tr><th>#</th><th>Player</th><th class="num">P</th><th class="num">W</th><th class="num">L</th><th class="num">T</th><th class="num">Pts</th><th class="num">NRR</th></tr></thead><tbody>`;
+    week1PointsTable.forEach((r, ri) => {
+      week1HTML += `<tr><td>${ri+1}</td><td>${r.name}</td>${r.values.map(v=>`<td class="num">${v}</td>`).join('')}</tr>`;
+    });
+    week1HTML += `</tbody></table>`;
+
+    week1HTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Top Performers</div>`;
+    week1HTML += `<table class="performers-table"><thead><tr><th>#</th><th>Player</th><th>Team</th><th>Owner</th><th class="num">Points</th></tr></thead><tbody>`;
+    week1TopPerformers.sort((a,b)=>b.points-a.points).forEach((p, pi) => {
+      week1HTML += `<tr><td>${pi+1}</td><td>${p.name}</td><td>${p.team}</td><td>${p.owner}</td><td class="num">${p.points}</td></tr>`;
+    });
+    week1HTML += `</tbody></table>`;
+
+    // ── Assemble two-tab layout
+    const tabsHTML = `
+      <div class="sd-tabs">
+        <button class="sd-tab-btn active" onclick="switchSeasonTab(0)">Draft Recap</button>
+        <button class="sd-tab-btn" onclick="switchSeasonTab(1)">Week 1</button>
+      </div>
+      <div class="sd-tab-panel active">${recapHTML}${boardHTML}</div>
+      <div class="sd-tab-panel">${week1HTML}</div>`;
+
+    document.getElementById('sd-recap-content').innerHTML = tabsHTML;
     document.getElementById('sd-points-header').style.display = 'none';
     document.getElementById('sd-points-wrap').style.display = 'none';
     document.getElementById('sd-performers-header').style.display = 'none';
