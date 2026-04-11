@@ -1407,14 +1407,101 @@ function showSeasonDetail(id) {
     });
     week1HTML += `</tbody></table>`;
 
-    // ── Assemble two-tab layout
+    // ── Week 2 recap
+    const week2RecapParas = [
+      "Week 2 delivered the season's most lopsided result so far. Santosh erupted for 1,832 — the highest team score of the IPL 2026 season to date — routing Sunil 1,832–718. Vaibhav Suryavanshi (322 pts) and Yashasvi Jaiswal (225 pts) were devastating at the top, with Rashid Khan (235 pts) and Washington Sundar (115 pts) sealing it with the ball. Sunil never threatened and the margin of 1,114 left no doubt.",
+      "Arun cruised to an 875–470 win over Nikunj thanks to Anshul Kamboj (239 pts) and Shubman Gill (140 pts). KL Rahul's solid 195 was the lone bright spot for Nikunj in an otherwise limp display. The result moved Arun to 2 points and left Nikunj still winless.",
+      "The week's closest contest saw Abhishek edge Rohan 1,064–699 — a 365-point margin that was the smallest of the five games. Mohammed Shami (201 pts) led the attack, while Rajat Patidar (271 pts) and Rishabh Pant (159 pts) powered the batting. Rohan's Nitish Kumar Reddy (131 pts) and Heinrich Klaasen (194 pts) fought hard but couldn't claw back the deficit. Rohan remains winless after two weeks.",
+      "Akshay maintained his unbeaten start, grinding out 985–594 over Alakh. Shreyas Iyer (179 pts) and Dhruv Jurel (197 pts) did the bulk of the batting work, with Digvesh Rathi (105 pts) and Aiden Markram (152 pts) chipping in. Alakh's Priyansh Arya (147 pts) and Tristan Stubbs (127 pts) scored well but it wasn't enough across the board.",
+      "Varun put in a dominant 1,052–428 performance over Vaibhav. Sanju Samson exploded for 264 pts to lead Varun's batting, with Tim David (203 pts) and Bhuvneshwar Kumar (174 pts) adding crucial firepower. Vaibhav's side was badly outgunned — Ayush Mhatre (125 pts) and Travis Head (90 pts) were the standouts in an otherwise misfiring lineup.",
+      "Two weeks in and the table has a clear top two: Santosh and Akshay both sit on 4 points, undefeated and pulling away from the pack. Eight others are on 2 or 0, with the chasing pack tightly bunched. The week's most eye-catching number: free agent Jamie Overton's 392 points — the highest individual haul of the season so far — contributed to no manager's score, a reminder that the waiver wire can be just as punishing as the matchups themselves. Vaibhav Suryavanshi (540 pts across two weeks) and Ravi Bishnoi (490 pts) remain the tournament's standout owned performers."
+    ];
+
+    const week2Matchups = [
+      { p1:'Santosh', s1:1832, p2:'Sunil',    s2:718  },
+      { p1:'Arun',    s1:875,  p2:'Nikunj',   s2:470  },
+      { p1:'Abhishek',s1:1064, p2:'Rohan',    s2:699  },
+      { p1:'Akshay',  s1:985,  p2:'Alakh',    s2:594  },
+      { p1:'Varun',   s1:1052, p2:'Vaibhav',  s2:428  },
+    ];
+
+    const week2PointsTable = [
+      { name:'Santosh',  values:[2,2,0,0,4,'+8.55'] },
+      { name:'Akshay',   values:[2,2,0,0,4,'+4.32'] },
+      { name:'Arun',     values:[2,1,1,0,2,'+1.13'] },
+      { name:'Varun',    values:[2,1,1,0,2,'+0.15'] },
+      { name:'Abhishek', values:[2,1,1,0,2,'-0.54'] },
+      { name:'Alakh',    values:[2,1,1,0,2,'-1.67'] },
+      { name:'Vaibhav',  values:[2,1,1,0,2,'-2.53'] },
+      { name:'Sunil',    values:[2,1,1,0,2,'-4.67'] },
+      { name:'Rohan',    values:[2,0,2,0,0,'-2.11'] },
+      { name:'Nikunj',   values:[2,0,2,0,0,'-2.62'] },
+    ];
+
+    const week2TopPerformers = [
+      { name:'Jamie Overton',         team:'Chennai Super Kings',        owner:'Free Agent', points:392 },
+      { name:'Vaibhav Suryavanshi',   team:'Rajasthan Royals',           owner:'Santosh',  points:322 },
+      { name:'Shivang Kumar',         team:'Sunrisers Hyderabad',        owner:'Free Agent',points:240 },
+      { name:'Anshul Kamboj',         team:'Chennai Super Kings',        owner:'Arun',     points:239 },
+      { name:'Yashasvi Jaiswal',      team:'Rajasthan Royals',           owner:'Santosh',  points:225 },
+      { name:'Tim David',             team:'Royal Challengers Bangalore',owner:'Varun',    points:203 },
+      { name:'Mohammed Shami',        team:'Lucknow Super Giants',       owner:'Abhishek', points:201 },
+      { name:'Dhruv Jurel',           team:'Rajasthan Royals',           owner:'Akshay',   points:197 },
+      { name:'KL Rahul',              team:'Delhi Capitals',             owner:'Nikunj',   points:195 },
+      { name:'Heinrich Klaasen',      team:'Sunrisers Hyderabad',        owner:'Rohan',    points:194 },
+      { name:'Sanju Samson',          team:'Chennai Super Kings',        owner:'Varun',    points:264 },
+      { name:'Rajat Patidar',         team:'Royal Challengers Bangalore',owner:'Abhishek', points:271 },
+      { name:'Rashid Khan',           team:'Gujarat Titans',             owner:'Santosh',  points:235 },
+      { name:'Shreyas Iyer',          team:'Punjab Kings',               owner:'Akshay',   points:179 },
+      { name:'Bhuvneshwar Kumar',     team:'Royal Challengers Bangalore',owner:'Varun',    points:174 },
+      { name:'Abhishek Sharma',       team:'Sunrisers Hyderabad',        owner:'Arun',     points:154 },
+      { name:'Aiden Markram',         team:'Lucknow Super Giants',       owner:'Akshay',   points:152 },
+      { name:'Virat Kohli',           team:'Royal Challengers Bangalore',owner:'Akshay',   points:165 },
+      { name:'Nitish Kumar Reddy',    team:'Sunrisers Hyderabad',        owner:'Rohan',    points:131 },
+      { name:'Krunal Pandya',         team:'Royal Challengers Bangalore',owner:'Santosh',  points:171 },
+    ];
+
+    let week2HTML = '';
+    week2RecapParas.forEach(para => {
+      week2HTML += `<div class="recap-body"><p>${para}</p></div>`;
+    });
+
+    week2HTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Week 2 Results</div>`;
+    week2HTML += `<div class="matchup-grid">`;
+    week2Matchups.forEach(g => {
+      const p1wins = g.s1 > g.s2;
+      week2HTML += `<div class="matchup-card">
+        <div class="matchup-team ${p1wins?'mu-winner':'mu-loser'}">${g.p1}<span class="mu-score">${g.s1}</span></div>
+        <div class="mu-vs">vs</div>
+        <div class="matchup-team ${!p1wins?'mu-winner':'mu-loser'}">${g.p2}<span class="mu-score">${g.s2}</span></div>
+      </div>`;
+    });
+    week2HTML += `</div>`;
+
+    week2HTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Points Table</div>`;
+    week2HTML += `<table class="points-table"><thead><tr><th>#</th><th>Player</th><th class="num">P</th><th class="num">W</th><th class="num">L</th><th class="num">T</th><th class="num">Pts</th><th class="num">NRR</th></tr></thead><tbody>`;
+    week2PointsTable.forEach((r, ri) => {
+      week2HTML += `<tr><td>${ri+1}</td><td>${r.name}</td>${r.values.map(v=>`<td class="num">${v}</td>`).join('')}</tr>`;
+    });
+    week2HTML += `</tbody></table>`;
+
+    week2HTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Top Performers</div>`;
+    week2HTML += `<table class="performers-table"><thead><tr><th>#</th><th>Player</th><th>Team</th><th>Owner</th><th class="num">Points</th></tr></thead><tbody>`;
+    week2TopPerformers.sort((a,b)=>b.points-a.points).forEach((p, pi) => {
+      week2HTML += `<tr><td>${pi+1}</td><td>${p.name}</td><td>${p.team}</td><td>${p.owner}</td><td class="num">${p.points}</td></tr>`;
+    });
+    week2HTML += `</tbody></table>`;
+
+    // ── Assemble three-tab layout
     const tabsHTML = `
       <div class="sd-tabs">
         <button class="sd-tab-btn active" onclick="switchSeasonTab(0)">Draft Recap</button>
         <button class="sd-tab-btn" onclick="switchSeasonTab(1)">Week 1</button>
+        <button class="sd-tab-btn" onclick="switchSeasonTab(2)">Week 2</button>
       </div>
       <div class="sd-tab-panel active">${recapHTML}${boardHTML}</div>
-      <div class="sd-tab-panel">${week1HTML}</div>`;
+      <div class="sd-tab-panel">${week1HTML}</div>
+      <div class="sd-tab-panel">${week2HTML}</div>`;
 
     document.getElementById('sd-recap-content').innerHTML = tabsHTML;
     document.getElementById('sd-points-header').style.display = 'none';
