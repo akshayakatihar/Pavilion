@@ -1492,16 +1492,190 @@ function showSeasonDetail(id) {
     });
     week2HTML += `</tbody></table>`;
 
-    // ── Assemble three-tab layout
+    // ── Week 3 recap
+    const week3RecapParas = [
+      "Week 3 belonged to Varun — and to one bowler in particular. Bhuvneshwar Kumar delivered an extraordinary 408-point haul, the highest individual score of the IPL 2026 season to date, as Varun dismantled Alakh 1,498–1,100. Arshdeep Singh (225 pts) and Tim David (189 pts) provided further firepower, while Prasidh Krishna (320 pts) and Noor Ahmed (251 pts) gave Alakh every chance in a losing effort. Varun's 1,498 was the week's highest team score.",
+      "Arun put in a commanding 1,232–706 win over Santosh, ending the unbeaten record of the early table-topper. Shubman Gill (312 pts) and Anshul Kamboj (293 pts) provided a devastating batting-bowling combination. Santosh could only muster 706 — Krunal Pandya (222 pts) and Prabhsimran Singh (180 pts) their best in an otherwise misfiring week.",
+      "The biggest upset of the week: Nikunj dismantled Akshay 1,178–627. Jos Buttler (245 pts), Kagiso Rabada (220 pts) and Axar Patel (156 pts) combined for a formidable total, while Akshay's squad was well below par — Virat Kohli (213 pts) their lone standout. Akshay's 627 was the week's lowest team score and a shock result for one of the pre-season favourites.",
+      "Vaibhav and Abhishek served up the week's closest contest — a 33-point thriller that Abhishek edged 1,146–1,113. Phil Salt (344 pts) and Rajat Patidar (248 pts) powered Abhishek's charge, while Vaibhav's Quinton de Kock (225 pts), Prince Yadav (215 pts) and Mohammed Siraj (210 pts) nearly bridged the gap. Three of the week's best individual scores came in a losing effort.",
+      "Rohan got their first win of the season, beating Sunil 1,008–749. Eshan Malinga (305 pts) and Heinrich Klaasen (220 pts) did the damage for Rohan, while Sunil's Ishan Kishan (182 pts) was their best in a squad that couldn't keep pace across the board.",
+      "After three weeks, the table is perfectly split — five managers on 4 points, five on 2. Bhuvneshwar Kumar's 408 pts stands as one of the great single-week bowling performances in Pavilion history. The story of the week, though, is Akshay's shock loss to Nikunj, which suddenly opens up the top of the table. Santosh have dropped their first game but remain well placed on NRR."
+    ];
+
+    const week3Matchups = [
+      { p1:'Rohan',   s1:1008, p2:'Sunil',   s2:749  },
+      { p1:'Arun',    s1:1232, p2:'Santosh', s2:706  },
+      { p1:'Varun',   s1:1498, p2:'Alakh',   s2:1100 },
+      { p1:'Nikunj',  s1:1178, p2:'Akshay',  s2:627  },
+      { p1:'Vaibhav', s1:1113, p2:'Abhishek',s2:1146 },
+    ];
+
+    const week3PointsTable = [
+      { name:'Santosh',  values:[3,2,1,0,4,'+3.9'] },
+      { name:'Arun',     values:[3,2,1,0,4,'+2.5'] },
+      { name:'Varun',    values:[3,2,1,0,4,'+1.4'] },
+      { name:'Akshay',   values:[3,2,1,0,4,'+1.0'] },
+      { name:'Abhishek', values:[3,2,1,0,4,'-0.3'] },
+      { name:'Nikunj',   values:[3,1,2,0,2,'+0.1'] },
+      { name:'Rohan',    values:[3,1,2,0,2,'-0.5'] },
+      { name:'Vaibhav',  values:[3,1,2,0,2,'-1.8'] },
+      { name:'Alakh',    values:[3,1,2,0,2,'-2.4'] },
+      { name:'Sunil',    values:[3,1,2,0,2,'-4.0'] },
+    ];
+
+    const week3TopPerformers = [
+      { name:'Bhuvneshwar Kumar',  team:'Royal Challengers Bangalore', owner:'Varun',    points:408 },
+      { name:'Phil Salt',          team:'Royal Challengers Bangalore', owner:'Abhishek', points:344 },
+      { name:'Prasidh Krishna',    team:'Gujarat Titans',              owner:'Alakh',    points:320 },
+      { name:'Shubman Gill',       team:'Gujarat Titans',              owner:'Arun',     points:312 },
+      { name:'Eshan Malinga',      team:'Sunrisers Hyderabad',         owner:'Rohan',    points:305 },
+      { name:'Anshul Kamboj',      team:'Chennai Super Kings',         owner:'Arun',     points:293 },
+      { name:'Noor Ahmed',         team:'Chennai Super Kings',         owner:'Alakh',    points:251 },
+      { name:'Rajat Patidar',      team:'Royal Challengers Bangalore', owner:'Abhishek', points:248 },
+      { name:'Jos Buttler',        team:'Gujarat Titans',              owner:'Nikunj',   points:245 },
+      { name:'Quinton deKock',     team:'Mumbai Indians',              owner:'Vaibhav',  points:225 },
+      { name:'Arshdeep Singh',     team:'Punjab Kings',                owner:'Varun',    points:225 },
+      { name:'Krunal Pandya',      team:'Royal Challengers Bangalore', owner:'Santosh',  points:222 },
+      { name:'Heinrich Klaasen',   team:'Sunrisers Hyderabad',         owner:'Rohan',    points:220 },
+      { name:'Kagiso Rabada',      team:'Gujarat Titans',              owner:'Nikunj',   points:220 },
+      { name:'Prince Yadav',       team:'Lucknow Super Giants',        owner:'Vaibhav',  points:215 },
+      { name:'Nitish Kumar Reddy', team:'Sunrisers Hyderabad',         owner:'Rohan',    points:215 },
+      { name:'Virat Kohli',        team:'Royal Challengers Bangalore', owner:'Akshay',   points:213 },
+      { name:'Mohammed Siraj',     team:'Gujarat Titans',              owner:'Vaibhav',  points:210 },
+      { name:'Ayush Mhatre',       team:'Chennai Super Kings',         owner:'Vaibhav',  points:198 },
+      { name:'Tim David',          team:'Royal Challengers Bangalore', owner:'Varun',    points:189 },
+    ];
+
+    let week3HTML = '';
+    week3RecapParas.forEach(para => {
+      week3HTML += `<div class="recap-body"><p>${para}</p></div>`;
+    });
+
+    week3HTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Week 3 Results</div>`;
+    week3HTML += `<div class="matchup-grid">`;
+    week3Matchups.forEach(g => {
+      const p1wins = g.s1 > g.s2;
+      week3HTML += `<div class="matchup-card">
+        <div class="matchup-team ${p1wins?'mu-winner':'mu-loser'}">${g.p1}<span class="mu-score">${g.s1}</span></div>
+        <div class="mu-vs">vs</div>
+        <div class="matchup-team ${!p1wins?'mu-winner':'mu-loser'}">${g.p2}<span class="mu-score">${g.s2}</span></div>
+      </div>`;
+    });
+    week3HTML += `</div>`;
+
+    week3HTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Points Table</div>`;
+    week3HTML += `<table class="points-table"><thead><tr><th>#</th><th>Player</th><th class="num">P</th><th class="num">W</th><th class="num">L</th><th class="num">T</th><th class="num">Pts</th><th class="num">NRR</th></tr></thead><tbody>`;
+    week3PointsTable.forEach((r, ri) => {
+      week3HTML += `<tr><td>${ri+1}</td><td>${r.name}</td>${r.values.map(v=>`<td class="num">${v}</td>`).join('')}</tr>`;
+    });
+    week3HTML += `</tbody></table>`;
+
+    week3HTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Top Performers</div>`;
+    week3HTML += `<table class="performers-table"><thead><tr><th>#</th><th>Player</th><th>Team</th><th>Owner</th><th class="num">Points</th></tr></thead><tbody>`;
+    week3TopPerformers.sort((a,b)=>b.points-a.points).forEach((p, pi) => {
+      week3HTML += `<tr><td>${pi+1}</td><td>${p.name}</td><td>${p.team}</td><td>${p.owner}</td><td class="num">${p.points}</td></tr>`;
+    });
+    week3HTML += `</tbody></table>`;
+
+    // ── Week 4 recap
+    const week4RecapParas = [
+      "Week 4 was Abhishek's. A 1,497-point monster haul — the highest team score of IPL 2026 so far — crushed Sunil 1,497–445. Jofra Archer delivered a season-defining 385 pts, Ravindra Jadeja added 321, and Nitish Rana chipped in with 308. Sunil could barely scrape together half their total — Ishan Kishan (244 pts) their lone bright spot. A comprehensive statement of intent from the CWC 2026 runner-up.",
+      "Rohan made it back-to-back wins with a 1,323-point week, routing Arun 1,323–970. Eshan Malinga (310 pts) was exceptional again, with Harsh Dubey (195 pts) and Heinrich Klaasen (172 pts) providing solid support. Arun's Abhishek Sharma produced the week's highest individual score — an extraordinary 432 pts — but the rest of the squad couldn't keep up. A bittersweet week for Arun: individual brilliance, team defeat.",
+      "Santosh kept pace at the top, beating Nikunj 1,227–919. Vaibhav Suryavanshi (322 pts), Varun Chakravarthy (245 pts) and Prabhsimran Singh (177 pts) combined for a commanding total. KL Rahul delivered a stunning 394 pts for Nikunj — his best of the season — but couldn't drag his side over the line on his own.",
+      "Akshay toppled Varun 1,050–822, Tilak Varma producing an explosive 323-point burst — Akshay's best individual performer of the season by some distance. Virat Kohli (191 pts) and Shreyas Iyer (171 pts) added the depth. Varun's Sanju Samson (247 pts) was excellent in a losing cause. Akshay climbs to 3 wins from 4 and is firmly in the title hunt.",
+      "Vaibhav edged Alakh 872–772. Prince Yadav (210 pts) and Donovan Ferreira (205 pts) were the key contributors for Vaibhav. Alakh's Priyansh Arya put in a heroic 341 pts — the week's second-highest individual haul — but the rest of the squad couldn't back him up. Another week of individual brilliance in a losing cause for Alakh.",
+      "After four weeks, Santosh leads the table on 6 points and the best NRR, with Abhishek and Akshay just behind on 6 points as well. Arun's Abhishek Sharma (432 pts) unseats Bhuvneshwar Kumar's 408 as the season's highest individual score. Sunil's 445 is the lowest team total of the season. With three matchday weeks remaining, the top of the table is wide open."
+    ];
+
+    const week4Matchups = [
+      { p1:'Rohan',   s1:1323, p2:'Arun',     s2:970  },
+      { p1:'Akshay',  s1:1050, p2:'Varun',    s2:822  },
+      { p1:'Vaibhav', s1:872,  p2:'Alakh',    s2:772  },
+      { p1:'Abhishek',s1:1497, p2:'Sunil',    s2:445  },
+      { p1:'Santosh', s1:1227, p2:'Nikunj',   s2:919  },
+    ];
+
+    const week4PointsTable = [
+      { name:'Santosh',  values:[4,3,1,0,6,'+3.73'] },
+      { name:'Abhishek', values:[4,3,1,0,6,'+2.44'] },
+      { name:'Akshay',   values:[4,3,1,0,6,'+1.35'] },
+      { name:'Arun',     values:[4,2,2,0,4,'+1.00'] },
+      { name:'Varun',    values:[4,2,2,0,4,'+0.50'] },
+      { name:'Rohan',    values:[4,2,2,0,4,'+0.48'] },
+      { name:'Vaibhav',  values:[4,2,2,0,4,'-1.10'] },
+      { name:'Nikunj',   values:[4,1,3,0,2,'-0.70'] },
+      { name:'Alakh',    values:[4,1,3,0,2,'-2.08'] },
+      { name:'Sunil',    values:[4,1,3,0,2,'-5.61'] },
+    ];
+
+    const week4TopPerformers = [
+      { name:'Abhishek Sharma',   team:'Sunrisers Hyderabad',         owner:'Arun',     points:432 },
+      { name:'KL Rahul',          team:'Delhi Capitals',              owner:'Nikunj',   points:394 },
+      { name:'Jofra Archer',      team:'Rajasthan Royals',            owner:'Abhishek', points:385 },
+      { name:'Priyansh Arya',     team:'Punjab Kings',                owner:'Alakh',    points:341 },
+      { name:'Tilak Varma',       team:'Mumbai Indians',              owner:'Akshay',   points:323 },
+      { name:'Vaibhav Suryavanshi',team:'Rajasthan Royals',           owner:'Santosh',  points:322 },
+      { name:'Ravindra Jadeja',   team:'Rajasthan Royals',            owner:'Abhishek', points:321 },
+      { name:'Eshan Malinga',     team:'Sunrisers Hyderabad',         owner:'Rohan',    points:310 },
+      { name:'Nitish Rana',       team:'Delhi Capitals',              owner:'Abhishek', points:308 },
+      { name:'Sanju Samson',      team:'Chennai Super Kings',         owner:'Varun',    points:247 },
+      { name:'Varun Chakravarthy',team:'Kolkata Knight Riders',       owner:'Santosh',  points:245 },
+      { name:'Ishan Kishan',      team:'Sunrisers Hyderabad',         owner:'Sunil',    points:244 },
+      { name:'Prince Yadav',      team:'Lucknow Super Giants',        owner:'Vaibhav',  points:210 },
+      { name:'Donovan Ferreira',  team:'Rajasthan Royals',            owner:'Vaibhav',  points:205 },
+      { name:'Kagiso Rabada',     team:'Gujarat Titans',              owner:'Nikunj',   points:202 },
+      { name:'Mitchell Marsh',    team:'Lucknow Super Giants',        owner:'Arun',     points:200 },
+      { name:'Harsh Dubey',       team:'Sunrisers Hyderabad',         owner:'Rohan',    points:195 },
+      { name:'Virat Kohli',       team:'Royal Challengers Bangalore', owner:'Akshay',   points:191 },
+      { name:'Cooper Connolly',   team:'Punjab Kings',                owner:'Abhishek', points:189 },
+      { name:'Prabhsimran Singh', team:'Punjab Kings',                owner:'Santosh',  points:177 },
+    ];
+
+    let week4HTML = '';
+    week4RecapParas.forEach(para => {
+      week4HTML += `<div class="recap-body"><p>${para}</p></div>`;
+    });
+
+    week4HTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Week 4 Results</div>`;
+    week4HTML += `<div class="matchup-grid">`;
+    week4Matchups.forEach(g => {
+      const p1wins = g.s1 > g.s2;
+      week4HTML += `<div class="matchup-card">
+        <div class="matchup-team ${p1wins?'mu-winner':'mu-loser'}">${g.p1}<span class="mu-score">${g.s1}</span></div>
+        <div class="mu-vs">vs</div>
+        <div class="matchup-team ${!p1wins?'mu-winner':'mu-loser'}">${g.p2}<span class="mu-score">${g.s2}</span></div>
+      </div>`;
+    });
+    week4HTML += `</div>`;
+
+    week4HTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Points Table</div>`;
+    week4HTML += `<table class="points-table"><thead><tr><th>#</th><th>Player</th><th class="num">P</th><th class="num">W</th><th class="num">L</th><th class="num">T</th><th class="num">Pts</th><th class="num">NRR</th></tr></thead><tbody>`;
+    week4PointsTable.forEach((r, ri) => {
+      week4HTML += `<tr><td>${ri+1}</td><td>${r.name}</td>${r.values.map(v=>`<td class="num">${v}</td>`).join('')}</tr>`;
+    });
+    week4HTML += `</tbody></table>`;
+
+    week4HTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Top Performers</div>`;
+    week4HTML += `<table class="performers-table"><thead><tr><th>#</th><th>Player</th><th>Team</th><th>Owner</th><th class="num">Points</th></tr></thead><tbody>`;
+    week4TopPerformers.sort((a,b)=>b.points-a.points).forEach((p, pi) => {
+      week4HTML += `<tr><td>${pi+1}</td><td>${p.name}</td><td>${p.team}</td><td>${p.owner}</td><td class="num">${p.points}</td></tr>`;
+    });
+    week4HTML += `</tbody></table>`;
+
+    // ── Assemble five-tab layout
     const tabsHTML = `
       <div class="sd-tabs">
         <button class="sd-tab-btn active" onclick="switchSeasonTab(0)">Draft Recap</button>
         <button class="sd-tab-btn" onclick="switchSeasonTab(1)">Week 1</button>
         <button class="sd-tab-btn" onclick="switchSeasonTab(2)">Week 2</button>
+        <button class="sd-tab-btn" onclick="switchSeasonTab(3)">Week 3</button>
+        <button class="sd-tab-btn" onclick="switchSeasonTab(4)">Week 4</button>
       </div>
       <div class="sd-tab-panel active">${recapHTML}${boardHTML}</div>
       <div class="sd-tab-panel">${week1HTML}</div>
-      <div class="sd-tab-panel">${week2HTML}</div>`;
+      <div class="sd-tab-panel">${week2HTML}</div>
+      <div class="sd-tab-panel">${week3HTML}</div>
+      <div class="sd-tab-panel">${week4HTML}</div>`;
 
     document.getElementById('sd-recap-content').innerHTML = tabsHTML;
     document.getElementById('sd-points-header').style.display = 'none';
