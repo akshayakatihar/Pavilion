@@ -420,7 +420,9 @@
         <div class="season-competition">Indian Premier League 2026</div>
       </div>
       <div class="season-podium">
-        <div class="podium-entry" style="font-size:.9rem;color:#9cad98;font-style:italic">🏏 Season in progress</div>
+        <div class="podium-entry"><span class="podium-medal">🥇</span><strong>Santosh Yadav</strong></div>
+        <div class="podium-entry"><span class="podium-medal">🥈</span><span>Varun Mahajan</span></div>
+        <div class="podium-entry"><span class="podium-medal">🥉</span><span>Akshay Katihar</span></div>
       </div>
       <div class="season-cta">View →</div>
     </div>
@@ -1030,10 +1032,10 @@ const leagues = [
   },
   {
     id:'ipl2026', year:2026, competition:'IPL', title:'Indian Premier League 2026',
-    desc:'The draft is done. Ten managers, eleven rounds, one hundred and ten picks — and a season full of promise and peril ahead.',
-    winner:null, runnerUp:null, third:null,
+    desc:"Santosh Yadav's dominant campaign — leading the table from start to finish — delivered his first IPL title. Varun Mahajan was runner-up. Akshay Katihar took third.",
+    winner:'Santosh Yadav', runnerUp:'Varun Mahajan', third:'Akshay Katihar',
     draftDone: true,
-    standings: [],
+    standings: ['Santosh Yadav','Varun Mahajan','Akshay Katihar','Arun Shetty','Rohan Bhat','Alakh Bajaj','Nikunj Aggarwal','Abhishek Chanani','Sunil Kaler','Vaibhav Jarad'],
     draftPicks: [
       { manager:'Rohan',     picks:['Jasprit Bumrah','Heinrich Klaasen','Sunil Narine','Riyan Parag','Rinku Singh','Rachin Ravindra','Jacob Bethell','Sai Kishore','Nitish Kumar Reddy','Shardul Thakur','Abdul Samad'] },
       { manager:'Arun',      picks:['Abhishek Sharma','Shubman Gill','Mitchell Marsh','Yuzvendra Chahal','Jitesh Sharma','Kuldeep Yadav','Marcus Stoinis','Ashutosh Sharma','Shashank Singh','Ayush Badoni','Mohsin Khan'] },
@@ -1267,8 +1269,8 @@ function showSeasonDetail(id) {
   document.getElementById('sd-eyebrow').textContent = l.competition + ' · ' + l.year;
   document.getElementById('sd-title').textContent = l.title;
 
-  // ── Upcoming / in-progress season — special layout ──────────────────────────
-  if (l.draftDone && !l.winner) {
+  // ── IPL 2026 full tab layout (in-progress or completed) ──────────────────────
+  if (l.draftDone) {
     document.getElementById('sd-podium').innerHTML = '';
     document.getElementById('sd-podium-header').style.display = 'none';
     document.getElementById('sd-recap-header').style.display = 'none';
@@ -1662,22 +1664,621 @@ function showSeasonDetail(id) {
     });
     week4HTML += `</tbody></table>`;
 
-    // ── Assemble five-tab layout
+    // ── Week 5 Data
+    const week5RecapParas = [
+      "Rohan edged out Akshay 958–793, with Riyan Parag (254 pts) and Rinku Singh (248 pts) doing the heavy lifting. Heinrich Klaasen (191 pts) provided strong support. Akshay's squad was led by Mitchell Starc (170 pts) and Suyash Sharma (150 pts), but couldn't quite keep pace.",
+      "Arun beat Vaibhav 1,131–1,012 in the week's closest contest. Mohsin Khan (325 pts) was Arun's standout performer, with Anshul Kamboj (210 pts) and Shubman Gill (136 pts) chipping in. Vaibhav's Donovan Ferreira (293 pts) and Josh Hazlewood (265 pts) made it a fight, but fell just short.",
+      "Alakh posted the week's highest team total — 1,231 — beating Nikunj 1,231–1,081 in a high-scoring affair. Priyansh Arya (328 pts) and Ruturaj Gaikwad (276 pts) were exceptional for Alakh. Nikunj's Kagiso Rabada (250 pts), Jason Holder (232 pts) and Jos Butler (217 pts) made it competitive but couldn't quite close the gap.",
+      "Santosh beat Abhishek 899–613 to extend his lead at the top. Rashid Khan (152 pts), Pathum Nissanka (132 pts) and Yashasvi Jaiswal (127 pts) combined for a solid team display. Abhishek's squad was led by Hardik Pandya (149 pts) but couldn't muster enough firepower.",
+      "Varun dismantled Sunil 1,016–197 in the most one-sided result of the week. Bhuvneshwar Kumar (435 pts) was the star of the show — the week's top individual score — with Devdutt Padikkal (229 pts) and Naman Dhir (153 pts) adding depth. Sunil's 197 is the lowest team total of the season, with Romano Shepherd (102 pts) their only notable contributor.",
+      "After five weeks, Santosh leads on 8 points with a +3.6 NRR — a commanding position. Four teams sit on 6 points: Varun (+2.0), Abhishek (+1.4), Arun (+1.0), Akshay (+0.8) and Rohan (+0.7), making the race for the top spots fiercely competitive. Bhuvneshwar Kumar's 435 pts is now the week's — and potentially the season's — top individual haul."
+    ];
+
+    const week5Matchups = [
+      { p1:'Rohan',   s1:958,  p2:'Akshay',   s2:793  },
+      { p1:'Arun',    s1:1131, p2:'Vaibhav',  s2:1012 },
+      { p1:'Alakh',   s1:1231, p2:'Nikunj',   s2:1081 },
+      { p1:'Santosh', s1:899,  p2:'Abhishek', s2:613  },
+      { p1:'Sunil',   s1:197,  p2:'Varun',    s2:1016 },
+    ];
+
+    const week5PointsTable = [
+      { name:'Santosh',  values:[5,4,1,0,8,'+3.60'] },
+      { name:'Varun',    values:[5,3,2,0,6,'+2.00'] },
+      { name:'Abhishek', values:[5,3,2,0,6,'+1.40'] },
+      { name:'Arun',     values:[5,3,2,0,6,'+1.00'] },
+      { name:'Akshay',   values:[5,3,2,0,6,'+0.80'] },
+      { name:'Rohan',    values:[5,3,2,0,6,'+0.70'] },
+      { name:'Vaibhav',  values:[5,2,3,0,4,'-1.10'] },
+      { name:'Alakh',    values:[5,2,3,0,4,'-1.40'] },
+      { name:'Nikunj',   values:[5,1,4,0,2,'-0.90'] },
+      { name:'Sunil',    values:[5,1,4,0,2,'-6.10'] },
+    ];
+
+    const week5TopPerformers = [
+      { name:'Bhuvneshwar Kumar',  team:'Royal Challengers Bangalore', owner:'Varun',    points:435 },
+      { name:'Priyansh Arya',      team:'Punjab Kings',                owner:'Alakh',    points:328 },
+      { name:'Mohsin Khan',        team:'Lucknow Super Giants',        owner:'Arun',     points:325 },
+      { name:'Ruturaj Gaikwad',    team:'Chennai Super Kings',         owner:'Alakh',    points:276 },
+      { name:'Donovan Ferreira',   team:'Rajasthan Royals',            owner:'Vaibhav',  points:293 },
+      { name:'Josh Hazlewood',     team:'Royal Challengers Bangalore', owner:'Vaibhav',  points:265 },
+      { name:'Riyan Parag',        team:'Rajasthan Royals',            owner:'Rohan',    points:254 },
+      { name:'Rinku Singh',        team:'Kolkata Knight Riders',       owner:'Rohan',    points:248 },
+      { name:'Devdutt Padikkal',   team:'Royal Challengers Bangalore', owner:'Varun',    points:229 },
+      { name:'Jason Holder',       team:'Gujarat Titans',              owner:'Nikunj',   points:232 },
+      { name:'Jos Butler',         team:'Gujarat Titans',              owner:'Nikunj',   points:217 },
+      { name:'Kagiso Rabada',      team:'Gujarat Titans',              owner:'Nikunj',   points:250 },
+      { name:'Anshul Kamboj',      team:'Chennai Super Kings',         owner:'Arun',     points:210 },
+    ];
+
+    let week5HTML = '';
+    week5RecapParas.forEach(para => {
+      week5HTML += `<div class="recap-body"><p>${para}</p></div>`;
+    });
+
+    week5HTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Week 5 Results</div>`;
+    week5HTML += `<div class="matchup-grid">`;
+    week5Matchups.forEach(g => {
+      const p1wins = g.s1 > g.s2;
+      week5HTML += `<div class="matchup-card">
+        <div class="matchup-team ${p1wins?'mu-winner':'mu-loser'}">${g.p1}<span class="mu-score">${g.s1}</span></div>
+        <div class="mu-vs">vs</div>
+        <div class="matchup-team ${!p1wins?'mu-winner':'mu-loser'}">${g.p2}<span class="mu-score">${g.s2}</span></div>
+      </div>`;
+    });
+    week5HTML += `</div>`;
+
+    week5HTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Points Table</div>`;
+    week5HTML += `<table class="points-table"><thead><tr><th>#</th><th>Player</th><th class="num">P</th><th class="num">W</th><th class="num">L</th><th class="num">T</th><th class="num">Pts</th><th class="num">NRR</th></tr></thead><tbody>`;
+    week5PointsTable.forEach((r, ri) => {
+      week5HTML += `<tr><td>${ri+1}</td><td>${r.name}</td>${r.values.map(v=>`<td class="num">${v}</td>`).join('')}</tr>`;
+    });
+    week5HTML += `</tbody></table>`;
+
+    week5HTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Top Performers</div>`;
+    week5HTML += `<table class="performers-table"><thead><tr><th>#</th><th>Player</th><th>Team</th><th>Owner</th><th class="num">Points</th></tr></thead><tbody>`;
+    week5TopPerformers.sort((a,b)=>b.points-a.points).forEach((p, pi) => {
+      week5HTML += `<tr><td>${pi+1}</td><td>${p.name}</td><td>${p.team}</td><td>${p.owner}</td><td class="num">${p.points}</td></tr>`;
+    });
+    week5HTML += `</tbody></table>`;
+
+    // ── Week 6 Data
+    const week6RecapParas = [
+      "Varun beat Rohan 848–756 in a close contest. Sanju Samson (192 pts) led Varun's charge, with Angkrish Raghuvansh (145 pts) and Arshdeep Singh (141 pts) providing solid backing. Rohan's squad was anchored by Sunil Narine (185 pts) and Nitish Kumar Reddy (164 pts), but couldn't quite match Varun's depth.",
+      "Alakh beat Arun 826–737 to maintain his winning momentum. Ryan Rickelton (229 pts) and Sai Sudharsan (222 pts) were the standout contributors for Alakh, with Cameron Green (171 pts) adding further firepower. Arun was led by Mitchell Marsh (335 pts) — the week's second-highest individual score — but the rest of the squad couldn't back him up.",
+      "Akshay cruised past Sunil 608–266. Pat Cummins (175 pts) and Ajinkya Rahane (111 pts) led Akshay's effort. Sunil's Ishan Kishan (200 pts) was their lone bright spot — the rest of the squad contributed almost nothing, with several players scoring zero.",
+      "Santosh demolished Vaibhav 1,574–1,010 in the week's highest-scoring match. Finn Allen (319 pts) and Rashid Khan (305 pts) were extraordinary, with Washington Sundar (237 pts) and Varun Chakravarthy (210 pts) piling on further. Vaibhav's Travis Head (234 pts) and Prince Yadav (210 pts) kept them competitive but Santosh's firepower was simply overwhelming.",
+      "Nikunj beat Abhishek 1,161–990. Jason Holder delivered a stunning 502 pts — the week's highest individual score by a huge margin — with Kagiso Rabada (200 pts) and Axar Patel (133 pts) in support. Abhishek were led by Cooper Connolly (212 pts) and Marcus Stoinis (183 pts) but couldn't live with Holder's heroics.",
+      "After six weeks, Santosh is in commanding form — 10 points and a +3.9 NRR. Varun and Akshay sit joint second on 8 points. The bottom two spots are now Nikunj and Vaibhav on 4 points, with Sunil in last on just 2. Jason Holder's 502 pts is likely the season's highest individual haul, and Santosh's 1,574 the highest team total."
+    ];
+
+    const week6Matchups = [
+      { p1:'Rohan',    s1:756,  p2:'Varun',    s2:848  },
+      { p1:'Arun',     s1:737,  p2:'Alakh',    s2:826  },
+      { p1:'Akshay',   s1:608,  p2:'Sunil',    s2:266  },
+      { p1:'Vaibhav',  s1:1010, p2:'Santosh',  s2:1574 },
+      { p1:'Abhishek', s1:990,  p2:'Nikunj',   s2:1161 },
+    ];
+
+    const week6PointsTable = [
+      { name:'Santosh',  values:[6,5,1,0,10,'+3.90'] },
+      { name:'Varun',    values:[6,4,2,0,8,'+1.90'] },
+      { name:'Akshay',   values:[6,4,2,0,8,'+1.20'] },
+      { name:'Abhishek', values:[6,3,3,0,6,'+0.90'] },
+      { name:'Arun',     values:[6,3,3,0,6,'+0.70'] },
+      { name:'Rohan',    values:[6,3,3,0,6,'+0.40'] },
+      { name:'Alakh',    values:[6,3,3,0,6,'-1.00'] },
+      { name:'Nikunj',   values:[6,2,4,0,4,'-0.40'] },
+      { name:'Vaibhav',  values:[6,2,4,0,4,'-1.90'] },
+      { name:'Sunil',    values:[6,1,5,0,2,'-5.70'] },
+    ];
+
+    const week6TopPerformers = [
+      { name:'Jason Holder',        team:'Gujarat Titans',              owner:'Nikunj',   points:502 },
+      { name:'Mitchell Marsh',      team:'Lucknow Super Giants',        owner:'Arun',     points:335 },
+      { name:'Finn Allen',          team:'Kolkata Knight Riders',       owner:'Santosh',  points:319 },
+      { name:'Rashid Khan',         team:'Gujarat Titans',              owner:'Santosh',  points:305 },
+      { name:'Nicholas Pooran',     team:'Lucknow Super Giants',        owner:'Abhishek', points:244 },
+      { name:'Washington Sundar',   team:'Gujarat Titans',              owner:'Santosh',  points:237 },
+      { name:'Travis Head',         team:'Sunrisers Hyderabad',         owner:'Vaibhav',  points:234 },
+      { name:'Ryan Rickelton',      team:'Mumbai Indians',              owner:'Alakh',    points:229 },
+      { name:'Sai Sudharsan',       team:'Gujarat Titans',              owner:'Alakh',    points:222 },
+      { name:'Varun Chakravarthy',  team:'Kolkata Knight Riders',       owner:'Santosh',  points:210 },
+      { name:'Cooper Connolly',     team:'Punjab Kings',                owner:'Abhishek', points:212 },
+      { name:'Prince Yadav',        team:'Lucknow Super Giants',        owner:'Vaibhav',  points:210 },
+      { name:'Kartik Tyagi',        team:'Kolkata Knight Riders',       owner:'Akshay',   points:210 },
+    ];
+
+    let week6HTML = '';
+    week6RecapParas.forEach(para => {
+      week6HTML += `<div class="recap-body"><p>${para}</p></div>`;
+    });
+
+    week6HTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Week 6 Results</div>`;
+    week6HTML += `<div class="matchup-grid">`;
+    week6Matchups.forEach(g => {
+      const p1wins = g.s1 > g.s2;
+      week6HTML += `<div class="matchup-card">
+        <div class="matchup-team ${p1wins?'mu-winner':'mu-loser'}">${g.p1}<span class="mu-score">${g.s1}</span></div>
+        <div class="mu-vs">vs</div>
+        <div class="matchup-team ${!p1wins?'mu-winner':'mu-loser'}">${g.p2}<span class="mu-score">${g.s2}</span></div>
+      </div>`;
+    });
+    week6HTML += `</div>`;
+
+    week6HTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Points Table</div>`;
+    week6HTML += `<table class="points-table"><thead><tr><th>#</th><th>Player</th><th class="num">P</th><th class="num">W</th><th class="num">L</th><th class="num">T</th><th class="num">Pts</th><th class="num">NRR</th></tr></thead><tbody>`;
+    week6PointsTable.forEach((r, ri) => {
+      week6HTML += `<tr><td>${ri+1}</td><td>${r.name}</td>${r.values.map(v=>`<td class="num">${v}</td>`).join('')}</tr>`;
+    });
+    week6HTML += `</tbody></table>`;
+
+    week6HTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Top Performers</div>`;
+    week6HTML += `<table class="performers-table"><thead><tr><th>#</th><th>Player</th><th>Team</th><th>Owner</th><th class="num">Points</th></tr></thead><tbody>`;
+    week6TopPerformers.sort((a,b)=>b.points-a.points).forEach((p, pi) => {
+      week6HTML += `<tr><td>${pi+1}</td><td>${p.name}</td><td>${p.team}</td><td>${p.owner}</td><td class="num">${p.points}</td></tr>`;
+    });
+    week6HTML += `</tbody></table>`;
+
+    // ── Week 7 Data
+    const week7RecapParas = [
+      "Varun produced the week's most dominant display, steamrolling Nikunj 1,353–989. Bhuvneshwar Kumar (347 pts) and Angkrish Raghuvanshi (313 pts) were the architects, with Jamie Overton (195 pts) and Arshdeep Singh (135 pts) adding depth. Nikunj's Jason Holder (216 pts) and Kagiso Rabada (200 pts) fought back but couldn't get near Varun's total.",
+      "Alakh delivered a commanding 1,079–382 win over Sunil. Sai Sudharsan (239 pts) and Cameron Green (234 pts) were excellent, with Priyansh Arya (168 pts) and Ryan Rickelton (133 pts) rounding out a well-balanced squad. Sunil's David Miller (131 pts) and Shivam Dube (112 pts) were their only notable contributors.",
+      "Akshay beat Santosh 967–828 in a significant result. Tilak Varma was exceptional with 357 pts — the week's highest individual score — supported by Virat Kohli (215 pts) and Shreyas Iyer (128 pts). Santosh were led by Finn Allen (216 pts) and Prabhsimran Singh (153 pts) but couldn't withstand Akshay's firepower.",
+      "Arun beat Abhishek 755–295 comfortably. Mitchell Marsh (230 pts) and Urvil Patel (177 pts) were the key contributors, with Shubman Gill (175 pts) and Anshul Kamboj (60 pts) in support. Abhishek's Nicholas Pooran (101 pts) and Cooper Connolly (99 pts) could barely muster anything collectively.",
+      "Rohan beat Vaibhav 676–527. Shardul Thakur (220 pts) and Sunil Narine (175 pts) led Rohan's effort, with Kartik Tyagi (170 pts) adding crucial points. Vaibhav's Mohammed Siraj (145 pts) and Will Jacks (125 pts) were their best performers.",
+      "The group stage is complete. Santosh and Varun head into the final next week, both locked on 10 points but Santosh with the superior NRR (+3.1 vs +2.1). Akshay and Arun meet in the third-place play-off. Tilak Varma's 357 pts is the week's standout individual performance, while the three Free Agents — Corbin Bosch (315), Josh Inglis (251) and Akash Singh (205) — all featured prominently in the top performers."
+    ];
+
+    const week7Matchups = [
+      { p1:'Rohan',   s1:676,  p2:'Vaibhav',  s2:527 },
+      { p1:'Arun',    s1:755,  p2:'Abhishek', s2:295 },
+      { p1:'Varun',   s1:1353, p2:'Nikunj',   s2:989 },
+      { p1:'Akshay',  s1:967,  p2:'Santosh',  s2:828 },
+      { p1:'Alakh',   s1:1079, p2:'Sunil',    s2:382 },
+    ];
+
+    const week7PointsTable = [
+      { name:'Santosh',  values:[7,5,2,0,10,'+3.10'] },
+      { name:'Varun',    values:[7,5,2,0,10,'+2.10'] },
+      { name:'Akshay',   values:[7,5,2,0,10,'+1.20'] },
+      { name:'Arun',     values:[7,4,3,0,8,'+1.30'] },
+      { name:'Rohan',    values:[7,4,3,0,8,'+0.60'] },
+      { name:'Alakh',    values:[7,4,3,0,8,'+0.10'] },
+      { name:'Abhishek', values:[7,3,4,0,6,'+0.10'] },
+      { name:'Nikunj',   values:[7,2,5,0,4,'-0.90'] },
+      { name:'Vaibhav',  values:[7,2,5,0,4,'-1.80'] },
+      { name:'Sunil',    values:[7,1,6,0,2,'-5.90'] },
+    ];
+
+    const week7TopPerformers = [
+      { name:'Tilak Varma',          team:'Mumbai Indians',              owner:'Akshay',      points:357 },
+      { name:'Bhuvneshwar Kumar',    team:'Royal Challengers Bangalore', owner:'Varun',       points:347 },
+      { name:'Corbin Bosch',         team:'Mumbai Indians',               owner:'Free Agent',  points:315 },
+      { name:'Angkrish Raghuvanshi', team:'Kolkata Knight Riders',        owner:'Varun',       points:313 },
+      { name:'Josh Inglis',          team:'Lucknow Super Giants',         owner:'Free Agent',  points:251 },
+      { name:'Sai Sudharsan',        team:'Gujarat Titans',               owner:'Alakh',       points:239 },
+      { name:'Cameron Green',        team:'Kolkata Knight Riders',        owner:'Alakh',       points:234 },
+      { name:'Mitchell Marsh',       team:'Lucknow Super Giants',         owner:'Arun',        points:230 },
+      { name:'Shardul Thakur',       team:'Mumbai Indians',               owner:'Rohan',       points:220 },
+      { name:'Jason Holder',         team:'Gujarat Titans',               owner:'Nikunj',      points:216 },
+      { name:'Finn Allen',           team:'Kolkata Knight Riders',        owner:'Santosh',     points:216 },
+      { name:'Virat Kohli',          team:'Royal Challengers Bangalore',  owner:'Akshay',      points:215 },
+      { name:'Akash Singh',          team:'Lucknow Super Giants',         owner:'Free Agent',  points:205 },
+    ];
+
+    let week7HTML = '';
+    week7RecapParas.forEach(para => {
+      week7HTML += `<div class="recap-body"><p>${para}</p></div>`;
+    });
+
+    week7HTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Week 7 Results</div>`;
+    week7HTML += `<div class="matchup-grid">`;
+    week7Matchups.forEach(g => {
+      const p1wins = g.s1 > g.s2;
+      week7HTML += `<div class="matchup-card">
+        <div class="matchup-team ${p1wins?'mu-winner':'mu-loser'}">${g.p1}<span class="mu-score">${g.s1}</span></div>
+        <div class="mu-vs">vs</div>
+        <div class="matchup-team ${!p1wins?'mu-winner':'mu-loser'}">${g.p2}<span class="mu-score">${g.s2}</span></div>
+      </div>`;
+    });
+    week7HTML += `</div>`;
+
+    week7HTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Points Table</div>`;
+    week7HTML += `<table class="points-table"><thead><tr><th>#</th><th>Player</th><th class="num">P</th><th class="num">W</th><th class="num">L</th><th class="num">T</th><th class="num">Pts</th><th class="num">NRR</th></tr></thead><tbody>`;
+    week7PointsTable.forEach((r, ri) => {
+      week7HTML += `<tr><td>${ri+1}</td><td>${r.name}</td>${r.values.map(v=>`<td class="num">${v}</td>`).join('')}</tr>`;
+    });
+    week7HTML += `</tbody></table>`;
+
+    week7HTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Top Performers</div>`;
+    week7HTML += `<table class="performers-table"><thead><tr><th>#</th><th>Player</th><th>Team</th><th>Owner</th><th class="num">Points</th></tr></thead><tbody>`;
+    week7TopPerformers.sort((a,b)=>b.points-a.points).forEach((p, pi) => {
+      week7HTML += `<tr><td>${pi+1}</td><td>${p.name}</td><td>${p.team}</td><td>${p.owner}</td><td class="num">${p.points}</td></tr>`;
+    });
+    week7HTML += `</tbody></table>`;
+
+    // ── Championship Week Data
+    const weekFinalRecapParas = [
+      "Santosh is champion. A composed 1,389–863 victory over Varun in the final sealed the title in emphatic fashion. Vaibhav Suryavanshi (338 pts) was the headline act, with Yashasvi Jaiswal (187 pts), Abishek Porel (173 pts) and Rashid Khan (170 pts) providing the depth. Varun's Rasikh Salam (235 pts) and Devdutt Padikkal (161 pts) fought hard but the gulf was too wide. A worthy champion — Santosh led the table from the front all season.",
+      "Akshay claimed third place with a stunning 2,059–1,366 victory over Arun — the highest team total of the entire season. Mitchell Starc (355 pts) and Corbin Bosch (354 pts) were extraordinary, with Dhruv Jurel (318 pts) and Shreyas Iyer (252 pts) adding further firepower. Arun's Josh Inglis (272 pts) and Kuldeep Yadav (210 pts) gave it a go but were completely overwhelmed.",
+      "Nikunj beat Abhishek 1,284–1,115 in the seventh-place play-off. Axar Patel (273 pts) and KL Rahul (236 pts) led Nikunj's effort, with Kagiso Rabada (190 pts) in support. Abhishek's Jofra Archer was exceptional with 479 pts — the week's highest individual score — but couldn't carry the side alone.",
+      "Rohan beat Alakh 965–791 to take fifth place. Heinrich Klaasen (233 pts) and Eshan Malinga (165 pts) were Rohan's key contributors, with Riyan Parag (135 pts) and Sunil Narine (130 pts) rounding out the effort. Alakh were led by Lungi Ngidi (290 pts) and Sai Sudharsan (159 pts).",
+      "Sunil beat Vaibhav 728–688 in the ninth-place play-off — Sunil's second win of the season. Ishan Kishan (332 pts) was the standout, with Shivam Dube (168 pts) and Nandre Burger (105 pts) in support. Vaibhav's Mohammed Siraj (205 pts) and Will Jacks (167 pts) couldn't quite get over the line.",
+      "The IPL 2026 Pavilion season is complete. Santosh wins his first title with a dominant campaign — leading the table for the bulk of the season and never dropping below second. Akshay takes third despite a difficult mid-season, rescued by one of the great individual weeks in Pavilion history — Corbin Bosch (354) and Mitchell Starc (355) both delivering in the clutch after late acquisitions. Jofra Archer's 479 pts in a losing cause was the week's defining individual performance."
+    ];
+
+    const weekFinalMatchups = [
+      { p1:'Santosh',  s1:1389, p2:'Varun',    s2:863,  label:'🏆 Final' },
+      { p1:'Akshay',   s1:2059, p2:'Arun',     s2:1366, label:'3rd Place' },
+      { p1:'Rohan',    s1:965,  p2:'Alakh',    s2:791,  label:'5th Place' },
+      { p1:'Nikunj',   s1:1284, p2:'Abhishek', s2:1115, label:'7th Place' },
+      { p1:'Sunil',    s1:728,  p2:'Vaibhav',  s2:688,  label:'9th Place' },
+    ];
+
+    const weekFinalPointsTable = [
+      { name:'🏆 Santosh',  values:['Champion'] },
+      { name:'🥈 Varun',    values:['Runner-up'] },
+      { name:'🥉 Akshay',   values:['3rd Place'] },
+      { name:'Arun',        values:['4th Place'] },
+      { name:'Rohan',       values:['5th Place'] },
+      { name:'Alakh',       values:['6th Place'] },
+      { name:'Nikunj',      values:['7th Place'] },
+      { name:'Abhishek',    values:['8th Place'] },
+      { name:'Sunil',       values:['9th Place'] },
+      { name:'Vaibhav',     values:['10th Place'] },
+    ];
+
+    const weekFinalTopPerformers = [
+      { name:'Jofra Archer',         team:'Rajasthan Royals',            owner:'Abhishek',    points:479 },
+      { name:'Mitchell Starc',       team:'Delhi Capitals',              owner:'Akshay',      points:355 },
+      { name:'Corbin Bosch',         team:'Mumbai Indians',              owner:'Akshay',      points:354 },
+      { name:'Vaibhav Suryavanshi',  team:'Rajasthan Royals',            owner:'Santosh',     points:338 },
+      { name:'Ishan Kishan',         team:'Sunrisers Hyderabad',         owner:'Sunil',       points:332 },
+      { name:'Dhruv Jurel',          team:'Rajasthan Royals',            owner:'Akshay',      points:318 },
+      { name:'Venkatesh Iyer',       team:'Royal Challengers Bangalore', owner:'Akshay',      points:292 },
+      { name:'Lungi Ngidi',          team:'Delhi Capitals',              owner:'Alakh',       points:290 },
+      { name:'Axar Patel',           team:'Delhi Capitals',              owner:'Nikunj',      points:273 },
+      { name:'Josh Inglis',          team:'Lucknow Super Giants',        owner:'Arun',        points:272 },
+      { name:'Shreyas Iyer',         team:'Punjab Kings',                owner:'Akshay',      points:252 },
+      { name:'KL Rahul',             team:'Delhi Capitals',              owner:'Nikunj',      points:236 },
+      { name:'Rasikh Salam',         team:'Royal Challengers Bangalore', owner:'Varun',       points:235 },
+      { name:'Heinrich Klaasen',     team:'Sunrisers Hyderabad',         owner:'Rohan',       points:233 },
+      { name:'Kuldeep Yadav',        team:'Delhi Capitals',              owner:'Arun',        points:210 },
+      { name:'Mohammed Siraj',       team:'Gujarat Titans',              owner:'Vaibhav',     points:205 },
+      { name:'Abhishek Sharma',      team:'Sunrisers Hyderabad',         owner:'Arun',        points:202 },
+    ];
+
+    let weekFinalHTML = '';
+    weekFinalRecapParas.forEach(para => {
+      weekFinalHTML += `<div class="recap-body"><p>${para}</p></div>`;
+    });
+
+    weekFinalHTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Championship Week Results</div>`;
+    weekFinalHTML += `<div class="matchup-grid">`;
+    weekFinalMatchups.forEach(g => {
+      const p1wins = g.s1 > g.s2;
+      weekFinalHTML += `<div class="matchup-card">
+        <div style="font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;padding:.4rem 0 0;font-family:'Crimson Text',serif">${g.label}</div>
+        <div class="matchup-team ${p1wins?'mu-winner':'mu-loser'}">${g.p1}<span class="mu-score">${g.s1}</span></div>
+        <div class="mu-vs">vs</div>
+        <div class="matchup-team ${!p1wins?'mu-winner':'mu-loser'}">${g.p2}<span class="mu-score">${g.s2}</span></div>
+      </div>`;
+    });
+    weekFinalHTML += `</div>`;
+
+    weekFinalHTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Final Standings</div>`;
+    weekFinalHTML += `<table class="points-table"><thead><tr><th>#</th><th>Player</th><th class="num">Final Position</th></tr></thead><tbody>`;
+    weekFinalPointsTable.forEach((r, ri) => {
+      weekFinalHTML += `<tr><td>${ri+1}</td><td>${r.name}</td><td class="num">${r.values[0]}</td></tr>`;
+    });
+    weekFinalHTML += `</tbody></table>`;
+
+    weekFinalHTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Top Performers</div>`;
+    weekFinalHTML += `<table class="performers-table"><thead><tr><th>#</th><th>Player</th><th>Team</th><th>Owner</th><th class="num">Points</th></tr></thead><tbody>`;
+    weekFinalTopPerformers.sort((a,b)=>b.points-a.points).forEach((p, pi) => {
+      weekFinalHTML += `<tr><td>${pi+1}</td><td>${p.name}</td><td>${p.team}</td><td>${p.owner}</td><td class="num">${p.points}</td></tr>`;
+    });
+    weekFinalHTML += `</tbody></table>`;
+
+    // ── Tournament Recap Tab
+    const tournamentTopPerformers = [
+      { name:'Bhuvneshwar Kumar',    team:'Royal Challengers Bangalore', owner:'Varun',    points:1549 },
+      { name:'Kagiso Rabada',        team:'Gujarat Titans',              owner:'Nikunj',   points:1420 },
+      { name:'Vaibhav Suryavanshi', team:'Rajasthan Royals',            owner:'Santosh',  points:1403 },
+      { name:'Heinrich Klaasen',     team:'Sunrisers Hyderabad',         owner:'Rohan',    points:1372 },
+      { name:'Shubman Gill',         team:'Gujarat Titans',              owner:'Arun',     points:1336 },
+      { name:'Abhishek Sharma',      team:'Sunrisers Hyderabad',         owner:'Arun',     points:1313 },
+      { name:'Jofra Archer',         team:'Rajasthan Royals',            owner:'Abhishek', points:1293 },
+      { name:'Ishan Kishan',         team:'Sunrisers Hyderabad',         owner:'Sunil',    points:1253 },
+      { name:'Virat Kohli',          team:'Royal Challengers Bangalore', owner:'Akshay',   points:1227 },
+      { name:'KL Rahul',             team:'Delhi Capitals',              owner:'Nikunj',   points:1224 },
+      { name:'Sai Sudharsan',        team:'Gujarat Titans',              owner:'Alakh',    points:1223 },
+      { name:'Jos Buttler',          team:'Gujarat Titans',              owner:'Nikunj',   points:1217 },
+      { name:'Rashid Khan',          team:'Gujarat Titans',              owner:'Santosh',  points:1185 },
+      { name:'Prabhsimran Singh',    team:'Punjab Kings',                owner:'Santosh',  points:1126 },
+      { name:'Anshul Kamboj',        team:'Chennai Super Kings',         owner:'Arun',     points:1118 },
+      { name:'Mitchell Marsh',       team:'Lucknow Super Giants',        owner:'Arun',     points:1113 },
+      { name:'Shreyas Iyer',         team:'Punjab Kings',                owner:'Akshay',   points:1108 },
+      { name:'Jason Holder',         team:'Gujarat Titans',              owner:'Nikunj',   points:1073 },
+      { name:'Devdutt Padikkal',     team:'Royal Challengers Bangalore', owner:'Varun',    points:1073 },
+      { name:'Dhruv Jurel',          team:'Rajasthan Royals',            owner:'Akshay',   points:1064 },
+      { name:'Eshan Malinga',        team:'Sunrisers Hyderabad',         owner:'Rohan',    points:1042 },
+      { name:'Sanju Samson',         team:'Chennai Super Kings',         owner:'Varun',    points:1024 },
+    ];
+
+    const tournamentFinalStandings = [
+      { pos:'🏆 1st', name:'Santosh Yadav',   pts:10, note:'Champion' },
+      { pos:'🥈 2nd', name:'Varun Mahajan',    pts:10, note:'Runner-up' },
+      { pos:'🥉 3rd', name:'Akshay Katihar',   pts:10, note:'3rd Place' },
+      { pos:'4th',    name:'Arun Shetty',       pts:8,  note:'' },
+      { pos:'5th',    name:'Rohan Bhat',         pts:8,  note:'' },
+      { pos:'6th',    name:'Alakh Bajaj',        pts:8,  note:'' },
+      { pos:'7th',    name:'Abhishek Chanani',   pts:6,  note:'' },
+      { pos:'8th',    name:'Nikunj Aggarwal',    pts:4,  note:'' },
+      { pos:'9th',    name:'Vaibhav Jarad',      pts:4,  note:'' },
+      { pos:'10th',   name:'Sunil Kaler',        pts:2,  note:'' },
+    ];
+
+    const tournamentChartData = [
+      { name:'Santosh',  color:'#e05252', data:[2,4,6,8,10,10,10] },
+      { name:'Varun',    color:'#5271e0', data:[0,2,4,6,6,8,10] },
+      { name:'Akshay',   color:'#52a0e0', data:[2,4,4,6,6,8,10] },
+      { name:'Arun',     color:'#52c47a', data:[0,2,2,4,6,6,8] },
+      { name:'Rohan',    color:'#c4a052', data:[0,2,4,4,6,6,8] },
+      { name:'Alakh',    color:'#9b52e0', data:[2,2,4,4,6,6,8] },
+      { name:'Abhishek', color:'#e07852', data:[0,2,2,4,4,6,6] },
+      { name:'Nikunj',   color:'#52e0c4', data:[0,0,0,2,2,4,4] },
+      { name:'Vaibhav',  color:'#e052b8', data:[2,2,2,4,4,4,4] },
+      { name:'Sunil',    color:'#8a8a8a', data:[0,0,0,0,2,2,2] },
+    ];
+
+    let tournamentHTML = '';
+
+    // Podium (only if season complete)
+    if (l.winner) {
+    tournamentHTML += `<div class="olympic-podium" style="margin-bottom:2.5rem">
+      <div class="olympic-slot second">
+        ${avatarHTML(l.runnerUp)}
+        <div class="olympic-name">${l.runnerUp}</div>
+        <div class="olympic-medal">🥈</div>
+        <div class="olympic-block">2</div>
+      </div>
+      <div class="olympic-slot first">
+        ${avatarHTML(l.winner, 'large')}
+        <div class="olympic-name">${l.winner}</div>
+        <div class="olympic-medal">🏆</div>
+        <div class="olympic-block">1</div>
+      </div>
+      <div class="olympic-slot third">
+        ${avatarHTML(l.third)}
+        <div class="olympic-name">${l.third}</div>
+        <div class="olympic-medal">🥉</div>
+        <div class="olympic-block">3</div>
+      </div>
+    </div>`;
+    }
+
+    // Weekly recaps
+    tournamentHTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Season in Review</div>`;
+
+    // Week 1
+    tournamentHTML += `<div class="recap-body"><p><strong>Week 1.</strong> IPL 2026 opened with Santosh posting the week's highest score — 1,349 — as Ravi Bishnoi (325 pts) and Vaibhav Suryavanshi (218 pts) overwhelmed Varun's 754. Akshay cruised to 1,220 over Abhishek's 747, Lungi Ngidi (235 pts) and Dhruv Jurel (222 pts) doing the damage. Alakh edged Rohan 1,054–997 in the week's closest match, Prasidh Krishna (225 pts) the difference-maker. Vaibhav beat Nikunj 1,021–902 thanks to Sameer Rizvi's 350 pts — the week's standout individual haul. Sunil ground out a 814–634 win over Arun. After one week, five teams sit on 2 points, five on 0.</p></div>`;
+    tournamentHTML += `<div class="matchup-grid">`;
+    [
+      { p1:'Santosh', s1:1349, p2:'Varun',    s2:754  },
+      { p1:'Akshay',  s1:1220, p2:'Abhishek', s2:747  },
+      { p1:'Alakh',   s1:1054, p2:'Rohan',    s2:997  },
+      { p1:'Vaibhav', s1:1021, p2:'Nikunj',   s2:902  },
+      { p1:'Sunil',   s1:814,  p2:'Arun',     s2:634  },
+    ].forEach(g => {
+      const w = g.s1 > g.s2;
+      tournamentHTML += `<div class="matchup-card"><div class="matchup-team ${w?'mu-winner':'mu-loser'}">${g.p1}<span class="mu-score">${g.s1}</span></div><div class="mu-vs">vs</div><div class="matchup-team ${!w?'mu-winner':'mu-loser'}">${g.p2}<span class="mu-score">${g.s2}</span></div></div>`;
+    });
+    tournamentHTML += `</div>`;
+
+    // Week 2
+    tournamentHTML += `<div class="recap-body"><p><strong>Week 2.</strong> Santosh erupted for 1,832 — the season's highest team score at the time — routing Sunil 1,832–718, Vaibhav Suryavanshi (322 pts) and Yashasvi Jaiswal (225 pts) unstoppable. Varun dominated Vaibhav 1,052–428, Sanju Samson (264 pts) and Tim David (203 pts) leading the charge. Abhishek edged Rohan 1,064–699 in the week's tightest contest. Akshay stayed unbeaten with a 985–594 win over Alakh, while Arun cruised past Nikunj 875–470. After two weeks, Santosh and Akshay lead on 4 points — the rest tightly bunched on 2 or 0.</p></div>`;
+    tournamentHTML += `<div class="matchup-grid">`;
+    [
+      { p1:'Santosh',  s1:1832, p2:'Sunil',   s2:718  },
+      { p1:'Arun',     s1:875,  p2:'Nikunj',  s2:470  },
+      { p1:'Abhishek', s1:1064, p2:'Rohan',   s2:699  },
+      { p1:'Akshay',   s1:985,  p2:'Alakh',   s2:594  },
+      { p1:'Varun',    s1:1052, p2:'Vaibhav', s2:428  },
+    ].forEach(g => {
+      const w = g.s1 > g.s2;
+      tournamentHTML += `<div class="matchup-card"><div class="matchup-team ${w?'mu-winner':'mu-loser'}">${g.p1}<span class="mu-score">${g.s1}</span></div><div class="mu-vs">vs</div><div class="matchup-team ${!w?'mu-winner':'mu-loser'}">${g.p2}<span class="mu-score">${g.s2}</span></div></div>`;
+    });
+    tournamentHTML += `</div>`;
+
+    // Week 3
+    tournamentHTML += `<div class="recap-body"><p><strong>Week 3.</strong> Bhuvneshwar Kumar's extraordinary 408-point haul — the season's highest individual score to that point — powered Varun past Alakh 1,498–1,100 in the week's headline result. Arun ended Santosh's unbeaten run with a 1,232–706 win, Shubman Gill (312 pts) and Anshul Kamboj (293 pts) combining brilliantly. The biggest upset saw Nikunj dismantle Akshay 1,178–627, Jos Buttler (245 pts) and Kagiso Rabada (220 pts) doing the damage. Abhishek edged Vaibhav 1,146–1,113 in a 33-point thriller, while Rohan earned their first win of the season over Sunil 1,008–749. The table splits evenly — five on 4 pts, five on 2 pts.</p></div>`;
+    tournamentHTML += `<div class="matchup-grid">`;
+    [
+      { p1:'Rohan',    s1:1008, p2:'Sunil',    s2:749  },
+      { p1:'Arun',     s1:1232, p2:'Santosh',  s2:706  },
+      { p1:'Varun',    s1:1498, p2:'Alakh',    s2:1100 },
+      { p1:'Nikunj',   s1:1178, p2:'Akshay',   s2:627  },
+      { p1:'Abhishek', s1:1146, p2:'Vaibhav',  s2:1113 },
+    ].forEach(g => {
+      const w = g.s1 > g.s2;
+      tournamentHTML += `<div class="matchup-card"><div class="matchup-team ${w?'mu-winner':'mu-loser'}">${g.p1}<span class="mu-score">${g.s1}</span></div><div class="mu-vs">vs</div><div class="matchup-team ${!w?'mu-winner':'mu-loser'}">${g.p2}<span class="mu-score">${g.s2}</span></div></div>`;
+    });
+    tournamentHTML += `</div>`;
+
+    // Week 4
+    tournamentHTML += `<div class="recap-body"><p><strong>Week 4.</strong> Abhishek posted the season's highest team score — 1,497 — to crush Sunil 1,497–445, Jofra Archer (385 pts), Ravindra Jadeja (321 pts) and Nitish Rana (308 pts) all firing. Rohan destroyed Arun 1,323–970, Eshan Malinga (310 pts) the standout even as Arun's Abhishek Sharma delivered a breathtaking 432 pts — the new season high for an individual — in a losing effort. Santosh kept pace by beating Nikunj 1,227–919, while Akshay toppled Varun 1,050–822 with Tilak Varma producing 323 pts. Vaibhav edged Alakh 872–772. Three teams sit on 6 points at the top with three weeks to go.</p></div>`;
+    tournamentHTML += `<div class="matchup-grid">`;
+    [
+      { p1:'Rohan',    s1:1323, p2:'Arun',     s2:970  },
+      { p1:'Akshay',   s1:1050, p2:'Varun',    s2:822  },
+      { p1:'Vaibhav',  s1:872,  p2:'Alakh',    s2:772  },
+      { p1:'Abhishek', s1:1497, p2:'Sunil',    s2:445  },
+      { p1:'Santosh',  s1:1227, p2:'Nikunj',   s2:919  },
+    ].forEach(g => {
+      const w = g.s1 > g.s2;
+      tournamentHTML += `<div class="matchup-card"><div class="matchup-team ${w?'mu-winner':'mu-loser'}">${g.p1}<span class="mu-score">${g.s1}</span></div><div class="mu-vs">vs</div><div class="matchup-team ${!w?'mu-winner':'mu-loser'}">${g.p2}<span class="mu-score">${g.s2}</span></div></div>`;
+    });
+    tournamentHTML += `</div>`;
+
+    // Week 5
+    tournamentHTML += `<div class="recap-body"><p><strong>Week 5.</strong> Bhuvneshwar Kumar returned with 435 pts as Varun demolished Sunil 1,016–197 — the season's most one-sided result, Sunil's 197 the lowest team total of the year. Alakh posted 1,231 to beat Nikunj 1,231–1,081, Priyansh Arya (328 pts) and Ruturaj Gaikwad (276 pts) starring. Santosh beat Abhishek 899–613 to extend his lead at the top, and Arun edged Vaibhav 1,131–1,012 in the week's closest match, Mohsin Khan (325 pts) doing the damage. Rohan earned a 958–793 win over Akshay. Santosh leads on 8 points, a cluster of five managers on 6 behind him.</p></div>`;
+    tournamentHTML += `<div class="matchup-grid">`;
+    [
+      { p1:'Rohan',   s1:958,  p2:'Akshay',   s2:793  },
+      { p1:'Arun',    s1:1131, p2:'Vaibhav',  s2:1012 },
+      { p1:'Alakh',   s1:1231, p2:'Nikunj',   s2:1081 },
+      { p1:'Santosh', s1:899,  p2:'Abhishek', s2:613  },
+      { p1:'Varun',   s1:1016, p2:'Sunil',    s2:197  },
+    ].forEach(g => {
+      const w = g.s1 > g.s2;
+      tournamentHTML += `<div class="matchup-card"><div class="matchup-team ${w?'mu-winner':'mu-loser'}">${g.p1}<span class="mu-score">${g.s1}</span></div><div class="mu-vs">vs</div><div class="matchup-team ${!w?'mu-winner':'mu-loser'}">${g.p2}<span class="mu-score">${g.s2}</span></div></div>`;
+    });
+    tournamentHTML += `</div>`;
+
+    // Week 6
+    tournamentHTML += `<div class="recap-body"><p><strong>Week 6.</strong> Jason Holder delivered the season's highest individual score — a stunning 502 pts — to power Nikunj past Abhishek 1,161–990. Santosh demolished Vaibhav 1,574–1,010 in the week's biggest win, Finn Allen (319 pts) and Rashid Khan (305 pts) irresistible. Akshay cruised past Sunil 608–266, while Alakh edged Arun 826–737 and Varun beat Rohan 848–756. Santosh clinches first place on 10 points. Varun and Akshay join him on 8, with four others on 6 heading into the final group stage round.</p></div>`;
+    tournamentHTML += `<div class="matchup-grid">`;
+    [
+      { p1:'Varun',    s1:848,  p2:'Rohan',    s2:756  },
+      { p1:'Alakh',    s1:826,  p2:'Arun',     s2:737  },
+      { p1:'Akshay',   s1:608,  p2:'Sunil',    s2:266  },
+      { p1:'Santosh',  s1:1574, p2:'Vaibhav',  s2:1010 },
+      { p1:'Nikunj',   s1:1161, p2:'Abhishek', s2:990  },
+    ].forEach(g => {
+      const w = g.s1 > g.s2;
+      tournamentHTML += `<div class="matchup-card"><div class="matchup-team ${w?'mu-winner':'mu-loser'}">${g.p1}<span class="mu-score">${g.s1}</span></div><div class="mu-vs">vs</div><div class="matchup-team ${!w?'mu-winner':'mu-loser'}">${g.p2}<span class="mu-score">${g.s2}</span></div></div>`;
+    });
+    tournamentHTML += `</div>`;
+
+    // Week 7
+    tournamentHTML += `<div class="recap-body"><p><strong>Week 7 — Group Stage Final.</strong> Varun steamrolled Nikunj 1,353–989, Bhuvneshwar Kumar (347 pts) and Angkrish Raghuvanshi (313 pts) sealing his place in the Final. Akshay beat Santosh 967–828 — Tilak Varma's 357 pts the week's individual highlight — to confirm third place and a play-off spot. Alakh ran over Sunil 1,079–382, Arun beat Abhishek 755–295, and Rohan took Vaibhav 676–527. The group stage finishes with Santosh and Varun meeting in the Final (both on 10 pts, separated by NRR), Akshay vs Arun in the third-place play-off.</p></div>`;
+    tournamentHTML += `<div class="matchup-grid">`;
+    [
+      { p1:'Varun',   s1:1353, p2:'Nikunj',   s2:989 },
+      { p1:'Akshay',  s1:967,  p2:'Santosh',  s2:828 },
+      { p1:'Alakh',   s1:1079, p2:'Sunil',    s2:382 },
+      { p1:'Arun',    s1:755,  p2:'Abhishek', s2:295 },
+      { p1:'Rohan',   s1:676,  p2:'Vaibhav',  s2:527 },
+    ].forEach(g => {
+      const w = g.s1 > g.s2;
+      tournamentHTML += `<div class="matchup-card"><div class="matchup-team ${w?'mu-winner':'mu-loser'}">${g.p1}<span class="mu-score">${g.s1}</span></div><div class="mu-vs">vs</div><div class="matchup-team ${!w?'mu-winner':'mu-loser'}">${g.p2}<span class="mu-score">${g.s2}</span></div></div>`;
+    });
+    tournamentHTML += `</div>`;
+
+    // Points table after group stage (week 7)
+    tournamentHTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Group Stage Final Standings (After Week 7)</div>`;
+    tournamentHTML += `<table class="points-table"><thead><tr><th>#</th><th>Player</th><th class="num">P</th><th class="num">W</th><th class="num">L</th><th class="num">Pts</th><th class="num">NRR</th></tr></thead><tbody>`;
+    [
+      { name:'Santosh',  v:[7,5,2,10,'+3.10'] },
+      { name:'Varun',    v:[7,5,2,10,'+2.10'] },
+      { name:'Akshay',   v:[7,5,2,10,'+1.20'] },
+      { name:'Arun',     v:[7,4,3,8,'+1.30'] },
+      { name:'Rohan',    v:[7,4,3,8,'+0.60'] },
+      { name:'Alakh',    v:[7,4,3,8,'+0.10'] },
+      { name:'Abhishek', v:[7,3,4,6,'+0.10'] },
+      { name:'Nikunj',   v:[7,2,5,4,'-0.90'] },
+      { name:'Vaibhav',  v:[7,2,5,4,'-1.80'] },
+      { name:'Sunil',    v:[7,1,6,2,'-5.90'] },
+    ].forEach((r,ri) => {
+      tournamentHTML += `<tr><td>${ri+1}</td><td>${r.name}</td>${r.v.map(v=>`<td class="num">${v}</td>`).join('')}</tr>`;
+    });
+    tournamentHTML += `</tbody></table>`;
+
+    // Points progression chart
+    tournamentHTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Points Progression</div>`;
+    tournamentHTML += `<div class="chart-wrap"><canvas id="tournament-recap-chart"></canvas></div>`;
+
+    if (l.winner) {
+    // Championship week recap
+    tournamentHTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Championship Week</div>`;
+    tournamentHTML += `<div class="recap-body"><p><strong>Championship Week.</strong> Santosh is champion. A commanding 1,389–863 win over Varun in the Final sealed the title — Vaibhav Suryavanshi (338 pts) the headline act, with Yashasvi Jaiswal (187 pts) and Rashid Khan (170 pts) in support. Varun's Rasikh Salam (235 pts) fought hard but the gap was too wide. In the third-place play-off, Akshay produced the season's highest ever team total — a stunning 2,059 — to overwhelm Arun 2,059–1,366, Mitchell Starc (355 pts) and Corbin Bosch (354 pts) delivering in the clutch as late acquisitions. Nikunj beat Abhishek 1,284–1,115 in the seventh-place match, but the game's defining individual performance came in a losing cause — Jofra Archer's extraordinary 479 pts for Abhishek. Rohan took fifth over Alakh 965–791, and Sunil ended the season with a narrow 728–688 win over Vaibhav in the ninth-place play-off.</p></div>`;
+    tournamentHTML += `<div class="matchup-grid">`;
+    [
+      { label:'🏆 Final',    p1:'Santosh',  s1:1389, p2:'Varun',    s2:863  },
+      { label:'3rd Place',   p1:'Akshay',   s1:2059, p2:'Arun',     s2:1366 },
+      { label:'5th Place',   p1:'Rohan',    s1:965,  p2:'Alakh',    s2:791  },
+      { label:'7th Place',   p1:'Nikunj',   s1:1284, p2:'Abhishek', s2:1115 },
+      { label:'9th Place',   p1:'Sunil',    s1:728,  p2:'Vaibhav',  s2:688  },
+    ].forEach(g => {
+      const p1wins = g.s1 > g.s2;
+      tournamentHTML += `<div class="matchup-card">
+        <div style="font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;padding:.4rem 0 0;font-family:'Crimson Text',serif">${g.label}</div>
+        <div class="matchup-team ${p1wins?'mu-winner':'mu-loser'}">${g.p1}<span class="mu-score">${g.s1}</span></div>
+        <div class="mu-vs">vs</div>
+        <div class="matchup-team ${!p1wins?'mu-winner':'mu-loser'}">${g.p2}<span class="mu-score">${g.s2}</span></div>
+      </div>`;
+    });
+    tournamentHTML += `</div>`;
+
+    // Tournament top performers
+    tournamentHTML += `<div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">Tournament Top Performers</div>`;
+    tournamentHTML += `<table class="performers-table"><thead><tr><th>#</th><th>Player</th><th>Team</th><th>Owner</th><th class="num">Points</th></tr></thead><tbody>`;
+    tournamentTopPerformers.forEach((p, pi) => {
+      tournamentHTML += `<tr><td>${pi+1}</td><td>${p.name}</td><td>${p.team}</td><td>${p.owner}</td><td class="num">${p.points}</td></tr>`;
+    });
+    tournamentHTML += `</tbody></table>`;
+    }
+
+    // ── Assemble ten-tab layout (Tournament Recap first)
     const tabsHTML = `
       <div class="sd-tabs">
-        <button class="sd-tab-btn active" onclick="switchSeasonTab(0)">Draft Recap</button>
-        <button class="sd-tab-btn" onclick="switchSeasonTab(1)">Week 1</button>
-        <button class="sd-tab-btn" onclick="switchSeasonTab(2)">Week 2</button>
-        <button class="sd-tab-btn" onclick="switchSeasonTab(3)">Week 3</button>
-        <button class="sd-tab-btn" onclick="switchSeasonTab(4)">Week 4</button>
+        <button class="sd-tab-btn active" onclick="switchSeasonTab(0)">Tournament Recap</button>
+        <button class="sd-tab-btn" onclick="switchSeasonTab(1)">Draft Recap</button>
+        <button class="sd-tab-btn" onclick="switchSeasonTab(2)">Week 1</button>
+        <button class="sd-tab-btn" onclick="switchSeasonTab(3)">Week 2</button>
+        <button class="sd-tab-btn" onclick="switchSeasonTab(4)">Week 3</button>
+        <button class="sd-tab-btn" onclick="switchSeasonTab(5)">Week 4</button>
+        <button class="sd-tab-btn" onclick="switchSeasonTab(6)">Week 5</button>
+        <button class="sd-tab-btn" onclick="switchSeasonTab(7)">Week 6</button>
+        <button class="sd-tab-btn" onclick="switchSeasonTab(8)">Week 7</button>
+        <button class="sd-tab-btn" onclick="switchSeasonTab(9)">Final</button>
       </div>
-      <div class="sd-tab-panel active">${recapHTML}${boardHTML}</div>
+      <div class="sd-tab-panel active">${tournamentHTML}</div>
+      <div class="sd-tab-panel">${recapHTML}${boardHTML}</div>
       <div class="sd-tab-panel">${week1HTML}</div>
       <div class="sd-tab-panel">${week2HTML}</div>
       <div class="sd-tab-panel">${week3HTML}</div>
-      <div class="sd-tab-panel">${week4HTML}</div>`;
+      <div class="sd-tab-panel">${week4HTML}</div>
+      <div class="sd-tab-panel">${week5HTML}</div>
+      <div class="sd-tab-panel">${week6HTML}</div>
+      <div class="sd-tab-panel">${week7HTML}</div>
+      <div class="sd-tab-panel">${weekFinalHTML}</div>`;
 
     document.getElementById('sd-recap-content').innerHTML = tabsHTML;
+
+    // Draw the points progression chart
+    setTimeout(() => {
+      const ctx = document.getElementById('tournament-recap-chart');
+      if (ctx && window.Chart) {
+        const labels = ['Wk 1','Wk 2','Wk 3','Wk 4','Wk 5','Wk 6','Wk 7'];
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels,
+            datasets: tournamentChartData.map(s => ({
+              label: s.name,
+              data: s.data,
+              borderColor: s.color,
+              backgroundColor: s.color + '22',
+              tension: 0.3,
+              pointRadius: 4,
+              borderWidth: 2,
+            }))
+          },
+          options: {
+            responsive: true,
+            plugins: { legend: { position: 'bottom' } },
+            scales: {
+              y: { beginAtZero: true, title: { display: true, text: 'Points' } },
+              x: { title: { display: true, text: 'Week' } }
+            }
+          }
+        });
+      }
+    }, 100);
+
     document.getElementById('sd-points-header').style.display = 'none';
     document.getElementById('sd-points-wrap').style.display = 'none';
     document.getElementById('sd-performers-header').style.display = 'none';
@@ -2126,7 +2727,7 @@ function renderPlayers(filter) {
           <div class="player-name">${name}</div>
           <div class="player-titles">
             ${s.titles>0 ? `<span class="badge badge-gold">🏆 ${s.titles}× Champ</span>` : ''}
-            ${podiums>s.titles ? `<span class="badge badge-silver">${podiums}× Podium</span>` : ''}
+            ${podiums>0 ? `<span class="badge badge-silver">${podiums}× Podium</span>` : ''}
             ${podiums===0 && !isInactive ? `<span class="badge badge-green">${s.leagues} Leagues</span>` : ''}
             ${isInactive ? `<span class="badge badge-inactive">Alumni</span>` : ''}
           </div>
